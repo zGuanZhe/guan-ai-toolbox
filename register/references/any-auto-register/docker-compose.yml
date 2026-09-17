@@ -1,0 +1,34 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        CAMOUFOX_VERSION: ${CAMOUFOX_VERSION:-135.0.1}
+        CAMOUFOX_RELEASE: ${CAMOUFOX_RELEASE:-beta.24}
+    container_name: any-auto-register
+    init: true
+    restart: unless-stopped
+    environment:
+      HOST: 0.0.0.0
+      PORT: "8000"
+      APP_RELOAD: "0"
+      APP_CONDA_ENV: docker
+      APP_RUNTIME_DIR: /runtime
+      # 必须落在挂载卷里，否则每次重建容器都会换密钥，库里的凭据全部作废
+      CREDENTIAL_ENCRYPTION_KEY_FILE: /runtime/.secrets/credential_key
+      APP_ENABLE_SOLVER: "1"
+      SOLVER_PORT: "8889"
+      SOLVER_BIND_HOST: 0.0.0.0
+      LOCAL_SOLVER_URL: http://127.0.0.1:8889
+      SOLVER_BROWSER_TYPE: ${SOLVER_BROWSER_TYPE:-camoufox}
+      PLAYWRIGHT_HEADLESS: ${PLAYWRIGHT_HEADLESS:-}
+    ports:
+      - "8000:8000"
+      - "127.0.0.1:8889:8889"
+      - "${CLIPROXYAPI_PORT_BIND:-8317}:8317"
+    volumes:
+      - ${APP_RUNTIME_BIND:-./data}:/runtime
+      - ${APP_EXT_TARGETS_BIND:-./_ext_targets}:/_ext_targets
+      - ${APP_EXTERNAL_LOGS_BIND:-./external_logs}:/app/services/external_logs
+    shm_size: "1gb"

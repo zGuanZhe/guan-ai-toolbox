@@ -1,0 +1,305 @@
+{
+  "chrome-devtools": {
+    "id": "chrome-devtools",
+    "name": "chrome-devtools",
+    "type": "stdio",
+    "config": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ]
+    },
+    "description": "Google Chrome DevTools Protocol 调试协议服务，实时控制浏览器、DOM/CSS 检查、控制台日志捕获与网络分析",
+    "homepage": "https://github.com/GoogleChrome/chrome-devtools-mcp",
+    "docs": "https://github.com/GoogleChrome/chrome-devtools-mcp#readme",
+    "tags": [
+      "browser",
+      "devtools",
+      "debugging",
+      "chrome"
+    ]
+  },
+  "cloudflare": {
+    "id": "cloudflare",
+    "name": "cloudflare",
+    "type": "http",
+    "config": {
+      "type": "http",
+      "url": "https://mcp.cloudflare.com/mcp"
+    },
+    "description": "Cloudflare 官方综合控制台 MCP，支持 Workers、网络路由、安全性与域名配置管理",
+    "homepage": "https://developers.cloudflare.com/agents/",
+    "docs": "https://developers.cloudflare.com/agents/",
+    "tags": [
+      "cloudflare",
+      "cloud",
+      "workers",
+      "devops"
+    ]
+  },
+  "cloudflare-bindings": {
+    "id": "cloudflare-bindings",
+    "name": "cloudflare-bindings",
+    "type": "http",
+    "config": {
+      "type": "http",
+      "url": "https://bindings.mcp.cloudflare.com/mcp"
+    },
+    "description": "Cloudflare Workers 运行时资源绑定服务 (KV, D1, R2, Vectorize 数据库与存储)",
+    "homepage": "https://developers.cloudflare.com/agents/",
+    "docs": "https://developers.cloudflare.com/agents/",
+    "tags": [
+      "cloudflare",
+      "kv",
+      "d1",
+      "r2",
+      "bindings"
+    ]
+  },
+  "cloudflare-builds": {
+    "id": "cloudflare-builds",
+    "name": "cloudflare-builds",
+    "type": "http",
+    "config": {
+      "type": "http",
+      "url": "https://builds.mcp.cloudflare.com/mcp"
+    },
+    "description": "Cloudflare Workers 构建、部署状态与实时构建日志流水线服务",
+    "homepage": "https://developers.cloudflare.com/agents/",
+    "docs": "https://developers.cloudflare.com/agents/",
+    "tags": [
+      "cloudflare",
+      "builds",
+      "ci-cd",
+      "logs"
+    ]
+  },
+  "cloudflare-docs": {
+    "id": "cloudflare-docs",
+    "name": "cloudflare-docs",
+    "type": "http",
+    "config": {
+      "type": "http",
+      "url": "https://docs.mcp.cloudflare.com/mcp"
+    },
+    "description": "Cloudflare 官方最新权威开发文档检索与上下文增强服务 (公开免鉴权)",
+    "homepage": "https://developers.cloudflare.com/",
+    "docs": "https://developers.cloudflare.com/",
+    "tags": [
+      "cloudflare",
+      "documentation",
+      "docs",
+      "search"
+    ]
+  },
+  "cloudflare-observability": {
+    "id": "cloudflare-observability",
+    "name": "cloudflare-observability",
+    "type": "http",
+    "config": {
+      "type": "http",
+      "url": "https://observability.mcp.cloudflare.com/mcp"
+    },
+    "description": "Cloudflare 实时监控、性能可观测性、错误追踪与调用分析服务",
+    "homepage": "https://developers.cloudflare.com/agents/",
+    "docs": "https://developers.cloudflare.com/agents/",
+    "tags": [
+      "cloudflare",
+      "observability",
+      "metrics",
+      "analytics"
+    ]
+  },
+  "context7": {
+    "id": "context7",
+    "name": "context7",
+    "type": "http",
+    "config": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "description": "Context7 实时库与框架最新文档查询服务，彻底避免大模型依赖过时训练数据",
+    "homepage": "https://context7.com",
+    "docs": "https://context7.com/docs",
+    "tags": [
+      "docs",
+      "context7",
+      "frameworks",
+      "libraries"
+    ]
+  },
+  "figma": {
+    "id": "figma",
+    "name": "figma",
+    "type": "http",
+    "config": {
+      "type": "http",
+      "url": "https://figma.mcp.run/mcp"
+    },
+    "description": "Figma Dev Mode 官方设计规范与组件层级读取服务 (支持 OAuth 身份验证)",
+    "homepage": "https://developers.figma.com/docs/figma-mcp-server/",
+    "docs": "https://developers.figma.com/docs/figma-mcp-server/",
+    "tags": [
+      "figma",
+      "ui",
+      "ux",
+      "design"
+    ]
+  },
+  "ida-pro-mcp": {
+    "id": "ida-pro-mcp",
+    "name": "ida-pro-mcp",
+    "type": "stdio",
+    "config": {
+      "type": "stdio",
+      "command": "python",
+      "args": [
+        "-m",
+        "ida_pro_mcp"
+      ]
+    },
+    "description": "IDA Pro 逆向工程与反编译联动 MCP，支持函数反编译、重命名、交叉引用与脚本分析",
+    "homepage": "https://github.com/mrexodia/ida-pro-mcp",
+    "docs": "https://github.com/mrexodia/ida-pro-mcp#readme",
+    "tags": [
+      "ida-pro",
+      "reverse-engineering",
+      "decompilation",
+      "binary"
+    ]
+  },
+  "js-reverse": {
+    "id": "js-reverse",
+    "name": "js-reverse",
+    "type": "stdio",
+    "config": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "js-reverse-mcp@latest"
+      ]
+    },
+    "description": "为 AI Agent 设计的 JavaScript 逆向分析、断点调试、网络流量拦截与反混淆服务",
+    "homepage": "https://github.com/zhizhuodemao/js-reverse-mcp",
+    "docs": "https://github.com/zhizhuodemao/js-reverse-mcp#readme",
+    "tags": [
+      "javascript",
+      "js-reverse",
+      "debugging",
+      "ast"
+    ]
+  },
+  "mysql-local": {
+    "id": "mysql-local",
+    "name": "mysql-local",
+    "type": "stdio",
+    "config": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "mysql-mcp-server"
+      ],
+      "env": {
+        "MYSQL_HOST": "localhost",
+        "MYSQL_PORT": "3306",
+        "MYSQL_USER": "root",
+        "MYSQL_PASSWORD": "",
+        "MYSQL_DATABASE": "test"
+      }
+    },
+    "description": "本地 MySQL 数据库安全查询、架构元数据探测与只读/读写分析服务",
+    "homepage": "https://github.com/GuangYiDing/mysql-mcp-server",
+    "docs": "https://github.com/GuangYiDing/mysql-mcp-server#readme",
+    "tags": [
+      "mysql",
+      "database",
+      "sql",
+      "local"
+    ]
+  },
+  "node_repl": {
+    "id": "node_repl",
+    "name": "node_repl",
+    "type": "stdio",
+    "config": {
+      "type": "stdio",
+      "command": "C:\\Users\\观\\AppData\\Local\\OpenAI\\Codex\\runtimes\\cua_node\\f24ab376120677c2\\bin\\node_repl.exe",
+      "env": {
+        "BROWSER_USE_AVAILABLE_BACKENDS": "chrome,iab",
+        "BROWSER_USE_CODEX_APP_BUILD_FLAVOR": "prod",
+        "BROWSER_USE_CODEX_APP_VERSION": "26.820.80927",
+        "BROWSER_USE_TINYSKY_ENABLED": "0",
+        "CODEX_CLI_PATH": "C:\\Users\\观\\AppData\\Local\\OpenAI\\Codex\\bin\\a5c9108151f176e9\\codex.exe",
+        "CODEX_HOME": "C:\\Users\\观\\.codex",
+        "NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER": "Control the in-app browser in conjunction with the Browser Plugin.",
+        "NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME": "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative.",
+        "NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS": "1000",
+        "NODE_REPL_NODE_MODULE_DIRS": "C:\\Users\\观\\AppData\\Local\\OpenAI\\Codex\\runtimes\\cua_node\\f24ab376120677c2\\bin\\node_modules",
+        "NODE_REPL_NODE_PATH": "C:\\Users\\观\\AppData\\Local\\OpenAI\\Codex\\runtimes\\cua_node\\f24ab376120677c2\\bin\\node.exe",
+        "NODE_REPL_TRUSTED_CODE_PATHS": "C:\\Users\\观\\.codex;C:\\Users\\观\\AppData\\Local\\OpenAI\\Codex\\runtimes\\cua_node\\f24ab376120677c2\\bin\\node_modules",
+        "NODE_REPL_TRUSTED_SERVICES": "{\"browser\":\"C:/Users/观/.codex/plugins/cache/openai-bundled/browser/26.820.80927/scripts/browser-service.mjs\",\"sky\":\"@oai/sky/service\"}",
+        "SKY_CUA_NATIVE_PIPE": "1",
+        "SKY_CUA_NATIVE_PIPE_DIRECTORY": "\\\\.\\pipe\\codex-computer-use-6348adc3-3c80-4260-949a-033152f89f4c"
+      },
+      "startup_timeout_sec": 120
+    },
+    "description": "OpenAI Codex / Node.js 实时执行与交互式 REPL 运行环境",
+    "homepage": "https://nodejs.org",
+    "docs": "https://nodejs.org/api/repl.html",
+    "tags": [
+      "node",
+      "repl",
+      "codex",
+      "runtime"
+    ]
+  },
+  "playwright": {
+    "id": "playwright",
+    "name": "playwright",
+    "type": "stdio",
+    "config": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@executeautomation/playwright-mcp-server"
+      ]
+    },
+    "description": "Playwright 端到端无头/有头浏览器自动化控制、DOM 交互与页面快照测试服务",
+    "homepage": "https://github.com/executeautomation/mcp-playwright",
+    "docs": "https://github.com/executeautomation/mcp-playwright#readme",
+    "tags": [
+      "playwright",
+      "browser",
+      "automation",
+      "e2e"
+    ]
+  },
+  "redis": {
+    "id": "redis",
+    "name": "redis",
+    "type": "stdio",
+    "config": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-redis",
+        "redis://localhost:6379"
+      ]
+    },
+    "description": "Redis 内存缓存、键值空间检索与高性能数据结构检测服务",
+    "homepage": "https://github.com/modelcontextprotocol/servers/tree/main/src/redis",
+    "docs": "https://github.com/modelcontextprotocol/servers#readme",
+    "tags": [
+      "redis",
+      "cache",
+      "kv",
+      "memory"
+    ]
+  }
+}

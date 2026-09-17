@@ -1,0 +1,122 @@
+from __future__ import annotations
+
+from typing import Optional
+
+from fastapi import APIRouter
+from pydantic import BaseModel, Field
+from sqlmodel import Session, select
+
+from core.db import AccountModel, engine
+from services.external_apps import install, list_status, start, start_all, stop, stop_all, uninstall
+from services.chatgpt_account_state import filter_accounts_by_plus_status
+from services.chatgpt_sync import backfill_chatgpt_account_to_cpa, get_cliproxy_sync_state
+
+router = APIRouter(prefix="/integrations", tags=["integrations"])
+
+
+class BackfillRequest(BaseModel):
+    platforms: list[str] = Field(default_factory=lambda: ["chatgpt"])
+    account_ids: list[int] = Field(default_factory=list)
+    pending_only: bool = False
+    status: Optional[str] = None
+    email: Optional[str] = None
+    plus_status: Optional[str] = None
+
+
+@router.get("/services")
+def get_services():
+    return {"items": list_status()}
+
+
+@router.post("/services/start-all")
+def start_all_services():
+    return {"items": start_all()}
+
+
+@router.post("/services/stop-all")
+def stop_all_services():
+    return {"items": stop_all()}
+
+
+@router.post("/services/{name}/start")
+def start_service(name: str):
+    return start(name)
+
+
+@router.post("/services/{name}/install")
+def install_service(name: str):
+    return install(name)
+
+
+@router.post("/services/{name}/uninstall")
+def uninstall_service(name: str):
+    return uninstall(name)
+
+
+@router.post("/services/{name}/stop")
+def stop_service(name: str):
+    return stop(name)
+
+
+@router.post("/backfill")
+def backfill_integrations(body: BackfillRequest):
+    summary = {"total": 0, "success": 0, "failed": 0, "skipped": 0, "items": []}
+    targets = set(body.platforms or [])
+
+    with Session(engine) as s:
+        q = select(AccountModel)
+        if body.account_ids:
+            q = q.where(AccountModel.id.in_(body.account_ids))
+            if targets:
+                q = q.where(AccountModel.platform.in_(targets))
+        elif targets:
+            q = q.where(AccountModel.platform.in_(targets))
+        else:
+            return summary
+
+        if body.status:
+            q = q.where(AccountModel.status == body.status)
+        if body.email:
+            q = q.where(AccountModel.email.contains(body.email))
+
+        rows = s.exec(q).all()
+        if body.plus_status:
+            rows = filter_accounts_by_plus_status(rows, body.plus_status)
+        if body.pending_only:
+            rows = [
+                row for row in rows
+                if row.platform != "chatgpt"
+                or str(get_cliproxy_sync_state(row).get("remote_state") or "").strip().lower() == "not_found"
+            ]
+
+        for row in rows:
+            item = {"platform": row.platform, "email": row.email, "results": []}
+            try:
+                results = []
+                if row.platform == "chatgpt":
+                    outcome = backfill_chatgpt_account_to_cpa(row, session=s, commit=True)
+                    ok = bool(outcome.get("ok"))
+                    skipped = bool(outcome.get("skipped"))
+                    results.extend(outcome.get("results") or [])
+                    if not results:
+                        results.append({"name": "CLIProxyAPI", "ok": ok, "msg": outcome.get("message", "")})
+                    if skipped:
+                        summary["skipped"] += 1
+                    elif ok:
+                        summary["success"] += 1
+                    else:
+                        summary["failed"] += 1
+
+                if not results:
+                    item["results"].append({"name": "skip", "ok": False, "msg": "未配置对应导入目标"})
+                    summary["failed"] += 1
+                else:
+                    item["results"] = results
+            except Exception as e:
+                s.rollback()
+                item["results"].append({"name": "error", "ok": False, "msg": str(e)})
+                summary["failed"] += 1
+            summary["items"].append(item)
+            summary["total"] += 1
+
+    return summary

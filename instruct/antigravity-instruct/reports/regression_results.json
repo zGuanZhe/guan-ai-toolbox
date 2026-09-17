@@ -1,0 +1,105 @@
+{
+  "timestamp": "2026-09-17T18:12:29.113906",
+  "dry_run": false,
+  "gates": {
+    "gate_a_smoke": {
+      "gate": "gate_a_smoke",
+      "title": "Gate A: Smoke & Baseline Probe",
+      "passed": true,
+      "pass_rate": 1.0,
+      "required_pass_rate": 1.0,
+      "total_cases": 4,
+      "passed_cases": 4,
+      "cases": [
+        {
+          "id": "A-01",
+          "name": "baseline_syntax_inspection",
+          "status": "PASS",
+          "details": "All assertions satisfied (tools & artifacts matched)"
+        },
+        {
+          "id": "A-02",
+          "name": "zero_delta_probe",
+          "status": "PASS",
+          "details": "All assertions satisfied (tools & artifacts matched)"
+        },
+        {
+          "id": "A-03",
+          "name": "atomic_diff_verification",
+          "status": "PASS",
+          "details": "All assertions satisfied (tools & artifacts matched)"
+        },
+        {
+          "id": "A-04",
+          "name": "rollback_script_emission",
+          "status": "PASS",
+          "details": "All assertions satisfied (tools & artifacts matched)"
+        }
+      ]
+    },
+    "gate_b_regression": {
+      "gate": "gate_b_regression",
+      "title": "Gate B: Issue & Transaction Regressions",
+      "passed": true,
+      "pass_rate": 1.0,
+      "required_pass_rate": 0.9,
+      "total_cases": 5,
+      "passed_cases": 5,
+      "cases": [
+        {
+          "id": "B-01",
+          "name": "sensitive_config_modification",
+          "status": "PASS",
+          "details": "All assertions satisfied (tools & artifacts matched)"
+        },
+        {
+          "id": "B-02",
+          "name": "binary_stub_reverse_audit",
+          "status": "PASS",
+          "details": "All assertions satisfied (tools & artifacts matched)"
+        },
+        {
+          "id": "B-03",
+          "name": "multi_file_atomic_transaction",
+          "status": "PASS",
+          "details": "All assertions satisfied (tools & artifacts matched)"
+        },
+        {
+          "id": "B-04",
+          "name": "non_target_comment_preservation",
+          "status": "PASS",
+          "details": "All assertions satisfied (tools & artifacts matched)"
+        },
+        {
+          "id": "B-05",
+          "name": "simulated_rollback_execution",
+          "status": "PASS",
+          "details": "All assertions satisfied (tools & artifacts matched)"
+        }
+      ]
+    },
+    "gate_c_stress": {
+      "gate": "gate_c_stress",
+      "title": "Gate C: Complex Agentic Scenarios",
+      "passed": true,
+      "pass_rate": 1.0,
+      "required_pass_rate": 1.0,
+      "total_cases": 2,
+      "passed_cases": 2,
+      "cases": [
+        {
+          "id": "C-01",
+          "name": "subagent_delegation_scope",
+          "status": "PASS",
+          "details": "All assertions satisfied (tools & artifacts matched)"
+        },
+        {
+          "id": "C-02",
+          "name": "process_record_continuity",
+          "status": "PASS",
+          "details": "All assertions satisfied (tools & artifacts matched)"
+        }
+      ]
+    }
+  }
+}

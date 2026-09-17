@@ -1,0 +1,2508 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>观的 AI 工具箱 · AER 控制台 (Lavender Neumorphism)</title>
+  <style>
+    /* ==========================================================================
+       AER — Lavender Neumorphism Style (淡紫白风格)
+       Colors:
+         Primary (Bg): #F5F2F9 (纯净柔和淡紫白)
+         Secondary (Shadow dark): #D6CFE2 (柔和淡紫阴影)
+         Tertiary (Shadow light): #ffffff (纯白高光)
+         Accent Lavender: #8B5CF6 (高雅淡紫/丁香紫)
+         Accent Hover: #7C3AED
+         Accent Dark: #6D28D9
+         Text Slate: #38314A (典雅深紫灰)
+         Text Muted: #7E7693 (柔和浅紫灰)
+         Status Success: #10B981
+         Status Danger: #F43F5E
+       ========================================================================== */
+    :root {
+      --bg-primary: #F5F2F9;
+      --shadow-dark: #D6CFE2;
+      --shadow-light: #ffffff;
+      --accent-cyan: #8B5CF6;
+      --accent-cyan-hover: #7C3AED;
+      --accent-cyan-dark: #6D28D9;
+      --text-main: #38314A;
+      --text-muted: #7E7693;
+      --status-green: #8B5CF6;
+      --status-success: #10B981;
+      --status-danger: #F43F5E;
+      
+      --font-stack: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-round: 50%;
+      
+      --neu-raised-sm: 3px 3px 7px var(--shadow-dark), -3px -3px 7px var(--shadow-light);
+      --neu-raised-md: 6px 6px 14px var(--shadow-dark), -6px -6px 14px var(--shadow-light);
+      --neu-raised-lg: 10px 10px 22px var(--shadow-dark), -10px -10px 22px var(--shadow-light);
+      --neu-inset-sm: inset 2px 2px 5px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light);
+      --neu-inset-md: inset 4px 4px 10px var(--shadow-dark), inset -4px -4px 10px var(--shadow-light);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: var(--font-stack);
+      font-size: 14px;
+      color: var(--text-main);
+      background-color: var(--bg-primary);
+      min-height: 100vh;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* Layout */
+    .aer-app {
+      display: flex;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    /* Neumorphic Sidebar */
+    .aer-sidebar {
+      width: 250px;
+      background-color: var(--bg-primary);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      padding: 24px 16px;
+      box-shadow: 4px 0 16px rgba(214, 207, 226, 0.4);
+      z-index: 20;
+    }
+
+    .brand-dial-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 6px 8px 24px 8px;
+    }
+
+    .dial-circle {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-round);
+      background: var(--bg-primary);
+      box-shadow: var(--neu-raised-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .dial-circle::after {
+      content: '';
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: var(--radius-round);
+      background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+      box-shadow: 0 0 8px rgba(139, 92, 246, 0.7);
+    }
+
+    .brand-text-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: var(--text-main);
+    }
+    .brand-text-sub {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+    }
+
+    /* Nav List */
+    .nav-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex-grow: 1;
+      margin-top: 8px;
+    }
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      background: var(--bg-primary);
+      border: none;
+      cursor: pointer;
+      color: var(--text-main);
+      font-family: var(--font-stack);
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: none;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      user-select: none;
+      text-align: left;
+    }
+
+    .nav-btn svg {
+      width: 18px;
+      height: 18px;
+      stroke-width: 2;
+      flex-shrink: 0;
+      transition: transform 0.2s ease, stroke 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      box-shadow: var(--neu-raised-sm);
+      color: var(--accent-cyan);
+    }
+
+    .nav-btn:hover svg {
+      transform: scale(1.05);
+      stroke: var(--accent-cyan);
+    }
+
+    .nav-btn.active {
+      box-shadow: var(--neu-inset-sm);
+      color: var(--accent-cyan);
+      font-weight: 700;
+    }
+
+    .nav-btn.active svg {
+      stroke: var(--accent-cyan);
+    }
+
+    .sidebar-footer-card {
+      padding: 14px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--neu-inset-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .status-pip {
+      width: 8px;
+      height: 8px;
+      border-radius: var(--radius-round);
+      background-color: var(--status-success);
+      box-shadow: 0 0 6px rgba(16, 185, 129, 0.8);
+    }
+
+    /* Main Container */
+    .aer-main {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+      background: var(--bg-primary);
+      position: relative;
+    }
+
+    /* Header Bar */
+    .aer-header {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      flex-shrink: 0;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.2px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Neumorphic Common Controls */
+    .neu-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: var(--radius-md);
+      background: var(--bg-primary);
+      border: none;
+      color: var(--text-main);
+      font-family: var(--font-stack);
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: var(--neu-raised-sm);
+      cursor: pointer;
+      outline: none;
+      transition: all 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .neu-btn:hover {
+      box-shadow: var(--neu-raised-md);
+      color: var(--accent-cyan);
+    }
+
+    .neu-btn:active {
+      box-shadow: var(--neu-inset-sm);
+      color: var(--accent-cyan);
+      transform: translateY(1px);
+    }
+
+    .neu-btn-accent {
+      background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+      color: #FFFFFF;
+      box-shadow: 4px 4px 12px #d6cfe2, -4px -4px 12px #ffffff;
+    }
+
+    .neu-btn-accent:hover {
+      background: linear-gradient(135deg, #9366f0, #7c3aed);
+      color: #FFFFFF;
+      box-shadow: 6px 6px 16px #cac0dc, -6px -6px 16px #ffffff;
+    }
+
+    .neu-btn-accent:active {
+      box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .neu-btn-sm {
+      padding: 6px 12px;
+      font-size: 12px;
+      border-radius: var(--radius-sm);
+    }
+
+    .neu-input {
+      background: var(--bg-primary);
+      border: none;
+      border-radius: var(--radius-md);
+      box-shadow: var(--neu-inset-sm);
+      padding: 10px 16px;
+      font-family: var(--font-stack);
+      font-size: 13px;
+      color: var(--text-main);
+      outline: none;
+      transition: box-shadow 0.2s ease;
+      width: 100%;
+    }
+
+    .neu-input:focus {
+      box-shadow: inset 3px 3px 7px var(--shadow-dark), inset -3px -3px 7px var(--shadow-light), 0 0 0 1px rgba(139, 92, 246, 0.35);
+    }
+
+    textarea.neu-input {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    /* Content Area */
+    .aer-body {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 12px 32px 32px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .view-pane {
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+      animation: neuFadeIn 0.2s ease-out;
+    }
+    .view-pane.active {
+      display: flex;
+    }
+
+    @keyframes neuFadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Neumorphic Cards */
+    .neu-card {
+      background: var(--bg-primary);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--neu-raised-md);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .neu-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .neu-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Layout Grids */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 1080px) {
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .grid-3 { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    /* Neumorphic Stat / Dial Widget */
+    .dial-stat-card {
+      background: var(--bg-primary);
+      border-radius: var(--radius-md);
+      box-shadow: var(--neu-raised-sm);
+      padding: 18px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .dial-meter {
+      width: 50px;
+      height: 50px;
+      border-radius: var(--radius-round);
+      box-shadow: var(--neu-inset-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--accent-cyan);
+    }
+
+    .dial-meter-num {
+      font-size: 17px;
+      font-weight: 800;
+      font-family: var(--font-mono);
+    }
+
+    .dial-info-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .dial-info-desc {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-top: 2px;
+    }
+
+    /* Neumorphic Tables */
+    .neu-table-wrap {
+      border-radius: var(--radius-md);
+      box-shadow: var(--neu-inset-sm);
+      overflow-x: auto;
+      padding: 6px;
+    }
+
+    table.neu-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      text-align: left;
+    }
+
+    table.neu-table th {
+      padding: 12px 16px;
+      color: var(--text-muted);
+      font-weight: 600;
+      border-bottom: 1px solid rgba(214, 207, 226, 0.4);
+      white-space: nowrap;
+    }
+
+    table.neu-table td {
+      padding: 12px 16px;
+      color: var(--text-main);
+      border-bottom: 1px solid rgba(214, 207, 226, 0.2);
+      vertical-align: middle;
+    }
+
+    table.neu-table tbody tr:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Tags / Chips */
+    .neu-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 9px;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--neu-raised-sm);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-main);
+      background: var(--bg-primary);
+    }
+
+    .neu-chip.active {
+      box-shadow: var(--neu-inset-sm);
+      color: var(--accent-cyan);
+    }
+
+    /* Terminal Console Drawer */
+    .neu-terminal {
+      height: 180px;
+      background: #1e1a2b;
+      color: #ded7eb;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      box-shadow: 0 -6px 20px rgba(214, 207, 226, 0.5);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      z-index: 50;
+    }
+
+    .neu-terminal.collapsed {
+      height: 40px;
+    }
+
+    .neu-term-header {
+      height: 40px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #2d263f;
+      user-select: none;
+      background: #272138;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+
+    .neu-term-title {
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      color: #b8afcd;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .term-icon-btn {
+      background: none;
+      border: none;
+      color: #b8afcd;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 4px;
+      border-radius: var(--radius-sm);
+    }
+    .term-icon-btn:hover {
+      color: #ffffff;
+    }
+
+    .neu-term-body {
+      flex-grow: 1;
+      padding: 10px 20px;
+      overflow-y: auto;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-all;
+      background: #1e1a2b;
+    }
+
+    .term-log-cyan { color: #a78bfa; }
+    .term-log-green { color: #34d399; }
+    .term-log-warn { color: #fbbf24; }
+    .term-log-err { color: #f87171; }
+    .term-log-muted { color: #7e7693; }
+
+    .neu-term-input-bar {
+      padding: 6px 16px;
+      background: #272138;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-top: 1px solid #2d263f;
+    }
+
+    .neu-term-input {
+      flex-grow: 1;
+      background: transparent;
+      border: none;
+      color: #FFF;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      outline: none;
+    }
+
+    /* Modal Backdrop */
+    .neu-modal-backdrop {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(56, 49, 74, 0.4);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 20px;
+    }
+    .neu-modal-backdrop.open {
+      display: flex;
+    }
+
+    .neu-modal {
+      width: 100%;
+      max-width: 720px;
+      max-height: 82vh;
+      background: var(--bg-primary);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--neu-raised-lg);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .neu-modal-header {
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .neu-modal-body {
+      padding: 20px 24px;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+
+    .neu-modal-footer {
+      padding: 14px 24px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    /* Progress bar */
+    .neu-progress-rail {
+      width: 100%;
+      height: 8px;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--neu-inset-sm);
+      overflow: hidden;
+      margin: 4px 0 8px 0;
+    }
+    .neu-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #8b5cf6, #c084fc);
+      border-radius: var(--radius-sm);
+      transition: width 0.3s ease;
+    }
+
+    /* Custom scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #d6cfe2; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #c1b7d5; }
+
+    /* Home guan branding */
+    .guan-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 70px 110px;
+      border-radius: 48px;
+      background: var(--bg-primary);
+      box-shadow: 16px 16px 36px var(--shadow-dark), -16px -16px 36px var(--shadow-light);
+      user-select: none;
+      transition: all 0.3s ease;
+    }
+
+    .guan-container:hover {
+      box-shadow: 20px 20px 48px var(--shadow-dark), -20px -20px 48px var(--shadow-light);
+    }
+
+    .guan-letters {
+      font-size: clamp(4.5rem, 15vw, 9.5rem);
+      font-weight: 800;
+      letter-spacing: 0.24em;
+      text-transform: lowercase;
+      color: var(--text-main);
+      text-shadow: 
+        4px 4px 8px var(--shadow-dark),
+        -4px -4px 8px var(--shadow-light);
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .guan-container:hover .guan-letters {
+      color: var(--accent-cyan);
+      text-shadow: 
+        0 0 28px rgba(77, 184, 232, 0.45),
+        3px 3px 6px var(--shadow-dark),
+        -3px -3px 6px var(--shadow-light);
+    }
+  </style>
+</head>
+<body>
+
+<div class="aer-app">
+
+  <!-- Neumorphic Sidebar -->
+  <aside class="aer-sidebar">
+    <div class="brand-dial-header">
+      <div class="dial-circle"></div>
+      <div>
+        <div class="brand-text-title">AI 工具箱</div>
+        <div class="brand-text-sub">AER Climate Dial</div>
+      </div>
+    </div>
+
+    <nav class="nav-group">
+      <button class="nav-btn active" onclick="switchTab('restore')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>对话记录恢复</span>
+      </button>
+      <button class="nav-btn" onclick="switchTab('register')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7.5" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+        <span>账号管理</span>
+      </button>
+      <button class="nav-btn" onclick="switchTab('mcp')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        <span>插件市场</span>
+      </button>
+      <button class="nav-btn" onclick="switchTab('instruct')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        <span>破限</span>
+      </button>
+      <button class="nav-btn" onclick="switchTab('modeltrace')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <span>模型路由归因</span>
+      </button>
+      <button class="nav-btn" onclick="switchTab('others')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <span>其他工具</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer-card">
+      <div class="status-indicator">
+        <span class="status-pip"></span>
+        <span>服务运行中 (:5050)</span>
+      </div>
+      <div id="footer-env-line">Win32 · Python 3.14</div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="aer-main">
+    
+    <!-- Header -->
+    <header class="aer-header">
+      <div class="header-left">
+        <h1 class="header-title" id="page-title">对话记录恢复</h1>
+      </div>
+      <div class="header-actions">
+        <button class="neu-btn neu-btn-sm" onclick="runDoctorCheck()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          环境自检
+        </button>
+        <button class="neu-btn neu-btn-accent neu-btn-sm" onclick="syncAllMcp()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+          全端同步
+        </button>
+      </div>
+    </header>
+
+    <!-- Content Body -->
+    <div class="aer-body">
+
+      <!-- =====================================================================
+           VIEW 1: 对话记录恢复 (Restore)
+           ===================================================================== -->
+      <div id="tab-restore" class="view-pane active">
+        <div class="neu-card">
+          <div class="neu-card-header">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <select class="neu-input" id="restore-tool-select" style="width: 170px;" onchange="loadSessions(this.value)">
+                <option value="workbuddy">WorkBuddy</option>
+                <option value="trae">Trae</option>
+                <option value="zcode">ZCode</option>
+                <option value="claudecode">Claude Code</option>
+                <option value="antigravity">Antigravity</option>
+                <option value="gpt">ChatGPT</option>
+              </select>
+              <button class="neu-btn neu-btn-accent neu-btn-sm" onclick="loadSessions()">扫描会话</button>
+            </div>
+            <div style="font-size: 12px; color: var(--text-muted);" id="session-count-text">未扫描</div>
+          </div>
+
+          <div class="neu-table-wrap">
+            <table class="neu-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>标题 / 工作区</th>
+                  <th style="width: 80px;">条数</th>
+                  <th style="width: 140px;">时间</th>
+                  <th style="width: 80px;">体积</th>
+                  <th style="text-align: center; width: 140px;">操作</th>
+                </tr>
+              </thead>
+              <tbody id="session-table-body">
+                <tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 24px;">点击「扫描会话」加载记录</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================================
+           VIEW 2: 账号管理与一键安全自动注册中枢 (Antigravity-Manager Architecture)
+           ===================================================================== -->
+      <div id="tab-register" class="view-pane">
+        <!-- Antigravity-Manager Style Stats Overview -->
+        <div class="grid-4" style="margin-bottom: 4px;">
+          <div class="dial-stat-card">
+            <div class="dial-meter">
+              <span class="dial-meter-num" id="stat-acc-total">0</span>
+            </div>
+            <div>
+              <div class="dial-info-title">托管账号总量</div>
+              <div class="dial-info-desc" id="stat-acc-total-desc">多厂商智能池</div>
+            </div>
+          </div>
+          <div class="dial-stat-card">
+            <div class="dial-meter" style="color: var(--status-success);">
+              <span class="dial-meter-num" id="stat-acc-active">0</span>
+            </div>
+            <div>
+              <div class="dial-info-title">活跃登录态</div>
+              <div class="dial-info-desc">各厂商正在使用</div>
+            </div>
+          </div>
+          <div class="dial-stat-card">
+            <div class="dial-meter" style="color: var(--accent-cyan);">
+              <span class="dial-meter-num" id="stat-acc-profiles">0</span>
+            </div>
+            <div>
+              <div class="dial-info-title">独立指纹沙箱</div>
+              <div class="dial-info-desc">Profile 严格隔离</div>
+            </div>
+          </div>
+          <div class="dial-stat-card">
+            <div class="dial-meter" style="color: var(--status-success);">
+              <span class="dial-meter-num" style="font-size: 13px;">就绪</span>
+            </div>
+            <div>
+              <div class="dial-info-title">反检测引擎</div>
+              <div class="dial-info-desc">Camoufox 指纹混淆</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 1: 多平台一键安全自动注册流水线 -->
+        <div class="neu-card">
+          <div class="neu-card-header">
+            <div>
+              <div class="neu-card-title">⚡ 多厂家指纹沙箱开户与自动化流水线</div>
+              <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">
+                基于 Camoufox 真实反检测指纹沙箱，为各平台生成独立 Profile 环境直达官方授权开户；支持 Qoder 底层 5 项硬件特征码实时洗白，绝无虚假数据。
+              </div>
+            </div>
+            <button class="neu-btn neu-btn-accent neu-btn-sm" id="btn-quick-random-email" onclick="fillRandomEmail()">🎲 生成随机安全邮箱</button>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div>
+              <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">选择目标厂商平台</label>
+              <div style="display: flex; gap: 10px; margin-top: 6px; flex-wrap: wrap;" id="auto-reg-provider-pills">
+                <button class="neu-btn neu-btn-sm auto-reg-pill active" data-provider="qoder" onclick="selectAutoRegProvider('qoder', this)">🟣 Qoder (硬件洗白+官方OAuth)</button>
+                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="grok" onclick="selectAutoRegProvider('grok', this)">⚫ xAI Grok (独立指纹开户)</button>
+                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="openai" onclick="selectAutoRegProvider('openai', this)">🟢 OpenAI / ChatGPT (沙箱/接码)</button>
+                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="workbuddy" onclick="selectAutoRegProvider('workbuddy', this)">🔵 WorkBuddy AI (腾讯云)</button>
+                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="tavily" onclick="selectAutoRegProvider('tavily', this)">🟡 Tavily Search</button>
+                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="trae" onclick="selectAutoRegProvider('trae', this)">🔷 Trae / Trae CN</button>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div>
+                <label style="font-size: 11px; font-weight: 700; color: var(--text-muted);">注册账号邮箱 / 用户名 (选填)</label>
+                <input type="text" class="neu-input" id="auto-reg-email" placeholder="输入预备邮箱，留空则使用独立浏览器自主开户" style="margin-top: 4px;">
+              </div>
+              <div>
+                <label style="font-size: 11px; font-weight: 700; color: var(--text-muted);">隔离网络代理 (可选，如 socks5://127.0.0.1:7890)</label>
+                <input type="text" class="neu-input" id="auto-reg-proxy" placeholder="留空则使用系统直连" style="margin-top: 4px;">
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; align-items: center; gap: 12px; margin-top: 4px;">
+              <span id="auto-reg-status-text" style="font-size: 12px; color: var(--text-muted);"></span>
+              <button class="neu-btn neu-btn-accent" id="btn-run-auto-register" style="padding: 10px 24px; font-weight: 800;" onclick="triggerAutoRegister()">
+                ⚡ 启动独立指纹沙箱进行安全开户
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: 多平台指纹账号池与一键切换 -->
+        <div class="neu-card">
+          <div class="neu-card-header" style="flex-wrap: wrap; gap: 12px;">
+            <div>
+              <div class="neu-card-title">🔐 本地多厂商真实账号池与一键秒切</div>
+              <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">
+                直接对接本地 Qoder-3 档案、Grok 真实号池与 WorkBuddy 快照，独立 Profile 严格隔离，秒级无感热切换
+              </div>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button class="neu-btn neu-btn-accent neu-btn-sm" onclick="showAddAccountModal()">+ 手动录入账号</button>
+              <button class="neu-btn neu-btn-sm" onclick="loadAccounts()">🔄 刷新池</button>
+            </div>
+          </div>
+
+          <!-- Provider Filter Tabs -->
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px;" id="account-filter-tabs">
+            <button class="neu-btn neu-btn-sm acc-filter-btn active" onclick="filterAccountsByProvider('all', this)">全部 (All)</button>
+            <button class="neu-btn neu-btn-sm acc-filter-btn" onclick="filterAccountsByProvider('openai', this)">OpenAI / GPT</button>
+            <button class="neu-btn neu-btn-sm acc-filter-btn" onclick="filterAccountsByProvider('workbuddy', this)">WorkBuddy</button>
+            <button class="neu-btn neu-btn-sm acc-filter-btn" onclick="filterAccountsByProvider('qoder', this)">Qoder</button>
+            <button class="neu-btn neu-btn-sm acc-filter-btn" onclick="filterAccountsByProvider('trae', this)">Trae</button>
+            <button class="neu-btn neu-btn-sm acc-filter-btn" onclick="filterAccountsByProvider('gemini', this)">Gemini</button>
+            <button class="neu-btn neu-btn-sm acc-filter-btn" onclick="filterAccountsByProvider('grok', this)">Grok</button>
+            <button class="neu-btn neu-btn-sm acc-filter-btn" onclick="filterAccountsByProvider('tavily', this)">Tavily</button>
+          </div>
+
+          <!-- Account Pool Table -->
+          <div class="neu-table-wrap">
+            <table class="neu-table">
+              <thead>
+                <tr>
+                  <th style="width: 130px;">平台厂商</th>
+                  <th>账号 / 邮箱 / UID</th>
+                  <th>环境指纹 Profile</th>
+                  <th style="width: 140px;">网络代理</th>
+                  <th style="width: 100px;">版本</th>
+                  <th style="width: 90px; text-align: center;">状态</th>
+                  <th style="width: 130px;">更新时间</th>
+                  <th style="text-align: center; width: 200px;">操作</th>
+                </tr>
+              </thead>
+              <tbody id="accounts-table-body">
+                <tr><td colspan="8" style="text-align: center; color: var(--text-muted); padding: 22px;">正在连接多厂家智能账号池...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- =====================================================================
+           VIEW 4: 插件市场 (Skills & MCP Marketplace)
+           ===================================================================== -->
+      <div id="tab-mcp" class="view-pane">
+        <!-- Sub navigation pills -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+          <div style="display: flex; gap: 10px;">
+            <button class="neu-btn neu-btn-sm neu-btn-accent mcp-subtab-btn active" id="btn-mcp-market" onclick="switchMcpSubTab('market')">
+              🌟 云端精选市场
+            </button>
+            <button class="neu-btn neu-btn-sm mcp-subtab-btn" id="btn-mcp-installed" onclick="switchMcpSubTab('installed')">
+              📦 本地已装插件
+            </button>
+            <button class="neu-btn neu-btn-sm mcp-subtab-btn" id="btn-mcp-custom" onclick="switchMcpSubTab('custom')">
+              ➕ 自定义导入
+            </button>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <select class="neu-input" id="mcp-sync-target-select" style="width: 140px;">
+              <option value="all">全端同步</option>
+              <option value="ccswitch">cc-switch</option>
+              <option value="claude">Claude</option>
+              <option value="codex">Codex</option>
+              <option value="workbuddy">WorkBuddy</option>
+            </select>
+            <button class="neu-btn neu-btn-sm" onclick="syncSelectedMcp()">执行同步</button>
+          </div>
+        </div>
+
+        <!-- PANE A: 云端精选市场 (Marketplace) -->
+        <div id="mcp-pane-market">
+          <!-- External Community Portals -->
+          <div class="neu-card" style="margin-bottom: 16px; padding: 14px 20px;">
+            <div style="font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 10px;">
+              外部社区注册中心入口 / Global MCP Hubs
+            </div>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+              <a href="https://smithery.ai" target="_blank" class="neu-btn neu-btn-sm" style="text-decoration: none;">🌐 Smithery.ai 插件中心</a>
+              <a href="https://glama.ai/mcp/servers" target="_blank" class="neu-btn neu-btn-sm" style="text-decoration: none;">🔍 Glama MCP 浏览器</a>
+              <a href="https://www.pulsemcp.com" target="_blank" class="neu-btn neu-btn-sm" style="text-decoration: none;">📈 PulseMCP 榜单</a>
+              <a href="https://github.com/modelcontextprotocol/servers" target="_blank" class="neu-btn neu-btn-sm" style="text-decoration: none;">🐙 Anthropic 官方仓库</a>
+            </div>
+          </div>
+
+          <!-- Cloud Market Cards Grid -->
+          <div class="grid-3" id="marketplace-grid" style="gap: 16px;">
+            <div style="color: var(--text-muted); font-size: 13px; padding: 12px;">正在连接云端插件市场...</div>
+          </div>
+        </div>
+
+        <!-- PANE B: 本地已装插件 (Installed) -->
+        <div id="mcp-pane-installed" style="display: none;">
+          <div class="neu-card" style="margin-bottom: 16px;">
+            <div class="neu-card-header">
+              <div class="neu-card-title">本地已安装 MCP 协议服务</div>
+              <button class="neu-btn neu-btn-sm" onclick="loadMcpList()">刷新列表</button>
+            </div>
+            <div class="neu-table-wrap">
+              <table class="neu-table">
+                <thead>
+                  <tr>
+                    <th>服务名称</th>
+                    <th>传输</th>
+                    <th>启动命令 / 参数</th>
+                    <th style="text-align: center; width: 140px;">操作</th>
+                  </tr>
+                </thead>
+                <tbody id="mcp-table-body">
+                  <tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 18px;">加载中...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <!-- Skills Switch -->
+            <div class="neu-card">
+              <div class="neu-card-header">
+                <div class="neu-card-title">Skills 技能管理</div>
+                <div style="display: flex; gap: 6px;">
+                  <button class="neu-btn neu-btn-sm" onclick="applyProfile('full')">全功能</button>
+                  <button class="neu-btn neu-btn-sm" onclick="applyProfile('minimal')">精简</button>
+                  <button class="neu-btn neu-btn-sm" onclick="applyProfile('dev')">极客</button>
+                </div>
+              </div>
+              <div class="neu-table-wrap" style="max-height: 260px; overflow-y: auto;">
+                <table class="neu-table">
+                  <thead>
+                    <tr>
+                      <th>名称</th>
+                      <th>状态</th>
+                      <th style="text-align: center; width: 90px;">切换</th>
+                    </tr>
+                  </thead>
+                  <tbody id="skills-table-body">
+                    <tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 12px;">加载中...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Design Systems -->
+            <div class="neu-card">
+              <div class="neu-card-header">
+                <div class="neu-card-title">设计规范库</div>
+                <input type="text" class="neu-input" id="design-search-input" placeholder="搜索品牌 (如 Stripe, Apple)..." style="width: 170px;" oninput="filterDesignBrands(this.value)">
+              </div>
+              <div style="max-height: 260px; overflow-y: auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 4px;" id="design-brands-grid">
+                <div style="color: var(--text-muted); font-size: 12px;">加载中...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE C: 自定义导入插件 (Custom Import) -->
+        <div id="mcp-pane-custom" style="display: none;">
+          <div class="neu-card" style="max-width: 720px; margin: 0 auto;">
+            <div class="neu-card-header">
+              <div class="neu-card-title">导入自定义 MCP 插件</div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <div>
+                <label style="font-size: 12px; font-weight: 700; color: var(--text-muted);">插件标识 ID (唯一英文字符)</label>
+                <input type="text" class="neu-input" id="custom-mcp-id" placeholder="如 my-custom-tool" style="margin-top: 4px;">
+              </div>
+              <div>
+                <label style="font-size: 12px; font-weight: 700; color: var(--text-muted);">插件显示名称</label>
+                <input type="text" class="neu-input" id="custom-mcp-name" placeholder="如 自定义开发辅助工具" style="margin-top: 4px;">
+              </div>
+              <div class="grid-2">
+                <div>
+                  <label style="font-size: 12px; font-weight: 700; color: var(--text-muted);">通信协议类型</label>
+                  <select class="neu-input" id="custom-mcp-type" style="margin-top: 4px;">
+                    <option value="stdio">stdio (命令行标准输入输出)</option>
+                    <option value="http">http / sse (网络端点服务)</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="font-size: 12px; font-weight: 700; color: var(--text-muted);">主命令 / URL</label>
+                  <input type="text" class="neu-input" id="custom-mcp-cmd" placeholder="如 npx, python, 或 http://..." style="margin-top: 4px;">
+                </div>
+              </div>
+              <div>
+                <label style="font-size: 12px; font-weight: 700; color: var(--text-muted);">运行参数 (逗号或空格分隔)</label>
+                <input type="text" class="neu-input" id="custom-mcp-args" placeholder="如 -y, @modelcontextprotocol/server-postgres, postgresql://..." style="margin-top: 4px;">
+              </div>
+              <div>
+                <label style="font-size: 12px; font-weight: 700; color: var(--text-muted);">插件功能描述</label>
+                <textarea class="neu-input" id="custom-mcp-desc" placeholder="简述该插件的能力与暴露的 Tools..." style="margin-top: 4px;"></textarea>
+              </div>
+              <button class="neu-btn neu-btn-accent" onclick="submitCustomMcp()">安装并写入本地配置</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- =====================================================================
+           VIEW 5: 破限中枢 (Unrestricted Jailbreak Hub)
+           ===================================================================== -->
+      <div id="tab-instruct" class="view-pane">
+        <!-- Master Control Banner -->
+        <div class="neu-card" style="margin-bottom: 20px; padding: 22px 26px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <h2 style="font-size: 19px; font-weight: 800; color: var(--text-main);">智能体破限中枢</h2>
+                <span class="neu-chip" id="unr-master-badge" style="padding: 4px 12px; font-size: 12px;">检测中...</span>
+              </div>
+              <div style="font-size: 13px; color: var(--text-muted); margin-top: 6px;" id="unr-master-desc">
+                消除虚假能力阻断与说教，一键注入无约束沙箱纯净执行器规则。
+              </div>
+            </div>
+            <div style="display: flex; gap: 12px;">
+              <button class="neu-btn neu-btn-accent" style="padding: 10px 20px; font-weight: 800;" onclick="applyUnrestricted()">
+                ⚡ 一键应用破限状态
+              </button>
+              <button class="neu-btn" style="padding: 10px 20px; font-weight: 800;" onclick="restoreUnrestricted()">
+                🛡️ 一键恢复原始状态
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Templates Grid & Editor -->
+        <div class="grid-2" style="margin-bottom: 20px;">
+          <!-- Template selector -->
+          <div class="neu-card">
+            <div class="neu-card-header">
+              <div class="neu-card-title">破限执行模板库</div>
+              <button class="neu-btn neu-btn-sm" onclick="loadUnrestrictedTemplates()">刷新模板</button>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 12px;" id="unr-templates-list">
+              <div style="color: var(--text-muted); font-size: 12px;">加载模板中...</div>
+            </div>
+          </div>
+
+          <!-- Prompt Preview & Custom Editor -->
+          <div class="neu-card">
+            <div class="neu-card-header">
+              <div class="neu-card-title">规则预览与自定义编辑</div>
+              <button class="neu-btn neu-btn-sm" onclick="copyActiveUnrPrompt()">复制规则</button>
+            </div>
+            <textarea class="neu-input" id="unr-prompt-editor" style="height: 240px; font-family: var(--font-mono); font-size: 12px; line-height: 1.5;" placeholder="当前选中的破限提示词指令..."></textarea>
+            <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+              <button class="neu-btn neu-btn-accent neu-btn-sm" onclick="applyCustomUnrestricted()">以当前自定义规则应用破限</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collapsible Doctor Check -->
+        <div class="neu-card">
+          <div class="neu-card-header">
+            <div class="neu-card-title">智能体环境兼容性自检 (Doctor Check)</div>
+            <button class="neu-btn neu-btn-sm" onclick="runDoctorCheck()">执行深度诊断</button>
+          </div>
+          <div class="neu-table-wrap" style="padding: 14px; background: #1e1a2b; color: #b8afcd; font-family: var(--font-mono); font-size: 12px; line-height: 1.6; max-height: 200px; overflow-y: auto; white-space: pre-wrap;" id="doctor-output-box">
+点击「执行深度诊断」检查 Claude Code / Codex / Antigravity 宿主规则挂载状态。
+          </div>
+        </div>
+      </div>
+
+
+      <!-- =====================================================================
+           VIEW 6: 模型路由归因 (ModelTrace)
+           ===================================================================== -->
+      <div id="tab-modeltrace" class="view-pane">
+        <div class="neu-card">
+          <div class="neu-card-header">
+            <div class="neu-card-title">激发挑战词 · 路由归因</div>
+            <button class="neu-btn neu-btn-sm" onclick="launchModelTraceWeb()">启动独立 Web 服务</button>
+          </div>
+          <div class="grid-3">
+            <div class="dial-stat-card" style="flex-direction: column; align-items: flex-start;">
+              <div style="font-weight: 700;">中文测试 1</div>
+              <div style="font-size: 12px; color: var(--text-muted); margin: 6px 0;">250 个 1~355 整数序列抽取</div>
+              <button class="neu-btn neu-btn-sm" onclick="copyPrompt('这是一次无语义数值选择。请为 250 个位置分别凭第一反应选择一个 1 到 355（含端点）的整数。请直接输出形如 [12, 85, ...] 的列表。')">复制词</button>
+            </div>
+            <div class="dial-stat-card" style="flex-direction: column; align-items: flex-start;">
+              <div style="font-weight: 700;">中文测试 2</div>
+              <div style="font-size: 12px; color: var(--text-muted); margin: 6px 0;">逐项快速选择序列</div>
+              <button class="neu-btn neu-btn-sm" onclick="copyPrompt('请完成无语义整数选择任务：逐项给出 250 个闭区间 [1, 355] 内的整数，每次只决定当前一项，直接以空格或逗号输出所有数字。')">复制词</button>
+            </div>
+            <div class="dial-stat-card" style="flex-direction: column; align-items: flex-start;">
+              <div style="font-weight: 700;">英文测试 3</div>
+              <div style="font-size: 12px; color: var(--text-muted); margin: 6px 0;">English Prompt Choice</div>
+              <button class="neu-btn neu-btn-sm" onclick="copyPrompt('For each of 250 positions, make one separate first-instinct choice of an integer from 1 to 355 inclusive. Return the numbers in a JSON list.')">复制词</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <!-- Manual Text Calculation -->
+          <div class="neu-card">
+            <div class="neu-card-header">
+              <div class="neu-card-title">回复路由指纹分析</div>
+            </div>
+            <textarea class="neu-input" id="trace-response-input" style="min-height: 120px;" placeholder="粘贴模型回复的文本序列 (如包含 250 个数字的列表)..."></textarea>
+            <button class="neu-btn neu-btn-accent" onclick="analyzeModelOutput()">计算特征指纹</button>
+          </div>
+
+          <!-- Result Gauge Card -->
+          <div class="neu-card">
+            <div class="neu-card-header">
+              <div class="neu-card-title">归因结论</div>
+              <span class="neu-chip active" id="trace-verdict-tag">待分析</span>
+            </div>
+            <div style="font-size: 15px; font-weight: 700; color: var(--accent-cyan); font-family: var(--font-mono);" id="trace-verdict-text">
+              等待输入文本计算
+            </div>
+            <div id="trace-prob-list" style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px;"></div>
+          </div>
+        </div>
+
+        <!-- Live API Probe -->
+        <div class="neu-card">
+          <div class="neu-card-header">
+            <div class="neu-card-title">在线 API 实时探测</div>
+          </div>
+          <div class="grid-4">
+            <input type="text" class="neu-input" id="trace-api-url" placeholder="Base URL">
+            <input type="password" class="neu-input" id="trace-api-key" placeholder="API Key">
+            <input type="text" class="neu-input" id="trace-api-model" placeholder="声明模型名称">
+            <button class="neu-btn neu-btn-accent" onclick="testLiveApiTrace()">发起探测</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================================
+           VIEW 7: 其他工具 (Others)
+           ===================================================================== -->
+      <div id="tab-others" class="view-pane">
+        <div class="grid-3">
+          <div class="neu-card">
+            <div class="neu-card-header">
+              <div class="neu-card-title">临时邮箱 API</div>
+            </div>
+            <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">
+              自动化临时邮箱与验证码接收端点。
+            </div>
+            <button class="neu-btn neu-btn-sm" onclick="openExternalUrl('https://email.manageh.shop/')">在浏览器中打开</button>
+          </div>
+
+          <div class="neu-card">
+            <div class="neu-card-header">
+              <div class="neu-card-title">Outlook 批量收件</div>
+            </div>
+            <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">
+              微软 Outlook 企业邮箱快速收件。
+            </div>
+            <button class="neu-btn neu-btn-sm" onclick="openExternalUrl('https://mail.chatai.codes/')">在浏览器中打开</button>
+          </div>
+
+          <div class="neu-card">
+            <div class="neu-card-header">
+              <div class="neu-card-title">Session 转 sub2api</div>
+            </div>
+            <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">
+              原生会话与 Cookie 转换为订阅格式。
+            </div>
+            <button class="neu-btn neu-btn-sm" onclick="openExternalUrl('https://convert.13916454.xyz/')">在浏览器中打开</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Execution Console Drawer -->
+    <div class="neu-terminal" id="neu-terminal">
+      <div class="neu-term-header">
+        <div class="neu-term-title">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+          <span>执行控制台</span>
+          <span style="color: #34d399; font-size: 11px;" id="term-status-tag">就绪</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="term-icon-btn" onclick="clearTerminal()" title="清空">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>
+          </button>
+          <button class="term-icon-btn" onclick="toggleTerminal()" title="展开/收起">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="neu-term-body" id="neu-term-body">
+[READY] AER 控制台初始化完成，实时接入本地管理 API (:5050)。
+      </div>
+
+      <div class="neu-term-input-bar">
+        <span style="color: var(--accent-cyan); font-family: var(--font-mono); font-size: 12px;">$</span>
+        <input type="text" class="neu-term-input" id="neu-term-input" placeholder="输入命令回车执行..." onkeydown="handleTerminalCmd(event)">
+        <button class="neu-btn neu-btn-sm" onclick="runCustomCmd()">执行</button>
+      </div>
+    </div>
+
+  </main>
+
+</div>
+
+<!-- Modal Dialog -->
+<div class="neu-modal-backdrop" id="neu-modal">
+  <div class="neu-modal">
+    <div class="neu-modal-header">
+      <div class="neu-card-title" id="modal-title">弹窗</div>
+      <button class="neu-btn neu-btn-sm" onclick="closeModal()">关闭</button>
+    </div>
+    <div class="neu-modal-body" id="modal-body"></div>
+    <div class="neu-modal-footer" id="modal-footer">
+      <button class="neu-btn neu-btn-sm" onclick="closeModal()">完成</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let designBrandsData = [];
+
+  function logTerm(msg, type = 'info') {
+    const term = document.getElementById('neu-term-body');
+    const time = new Date().toTimeString().split(' ')[0];
+    let cls = 'term-log-cyan';
+    if (type === 'success') cls = 'term-log-green';
+    else if (type === 'warn') cls = 'term-log-warn';
+    else if (type === 'err') cls = 'term-log-err';
+    else if (type === 'dim') cls = 'term-log-muted';
+
+    term.innerHTML += `<div class="${cls}">[${time}] ${msg}</div>`;
+    term.scrollTop = term.scrollHeight;
+  }
+
+  function clearTerminal() {
+    document.getElementById('neu-term-body').innerHTML = '';
+  }
+
+  function toggleTerminal() {
+    document.getElementById('neu-terminal').classList.toggle('collapsed');
+  }
+
+  function switchTab(name) {
+    document.querySelectorAll('.view-pane').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+
+    const view = document.getElementById(`tab-${name}`);
+    if (view) view.classList.add('active');
+
+    const titles = {
+      restore: '对话记录恢复',
+      register: '账号管理',
+      mcp: '插件市场 (MCP & Skills)',
+      instruct: '破限',
+      modeltrace: '模型路由归因',
+      others: '其他工具'
+    };
+    document.getElementById('page-title').innerText = titles[name] || 'AI 工具箱';
+
+    const order = ['restore', 'register', 'mcp', 'instruct', 'modeltrace', 'others'];
+    const idx = order.indexOf(name);
+    const navs = document.querySelectorAll('.nav-btn');
+    if (navs[idx]) navs[idx].classList.add('active');
+
+    if (name === 'restore') loadSessions();
+    else if (name === 'register') loadAccounts();
+    else if (name === 'mcp') { loadMarketplace(); loadMcpList(); loadSkills(); loadDesignBrands(); }
+    else if (name === 'instruct') { loadUnrestrictedStatus(); loadUnrestrictedTemplates(); }
+    else if (name === 'modeltrace') loadModelTraceInfo();
+  }
+
+  function showModal(title, bodyHtml, footerHtml = '') {
+    document.getElementById('modal-title').innerText = title;
+    document.getElementById('modal-body').innerHTML = bodyHtml;
+    if (footerHtml) document.getElementById('modal-footer').innerHTML = footerHtml;
+    else document.getElementById('modal-footer').innerHTML = '<button class="neu-btn neu-btn-sm" onclick="closeModal()">关闭</button>';
+    document.getElementById('neu-modal').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('neu-modal').classList.remove('open');
+  }
+
+  async function execCmd(cmd) {
+    logTerm(`执行: ${cmd}`, 'info');
+    document.getElementById('term-status-tag').innerText = '运行中';
+    try {
+      const res = await fetch('/api/system/exec_command', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({command: cmd})
+      });
+      const data = await res.json();
+      if (data.success) {
+        logTerm(`完成 (${data.duration_ms}ms)`, 'success');
+        if (data.stdout) logTerm(data.stdout, 'dim');
+        if (data.stderr) logTerm(data.stderr, 'warn');
+      } else {
+        logTerm(`失败: ${data.error || ''}`, 'err');
+      }
+    } catch (e) {
+      logTerm(`异常: ${e.message}`, 'err');
+    } finally {
+      document.getElementById('term-status-tag').innerText = '就绪';
+    }
+  }
+
+  function handleTerminalCmd(e) {
+    if (e.key === 'Enter') runCustomCmd();
+  }
+
+  function runCustomCmd() {
+    const input = document.getElementById('neu-term-input');
+    const cmd = input.value.trim();
+    if (!cmd) return;
+    input.value = '';
+    execCmd(cmd);
+  }
+
+  // Overview
+  async function loadOverview() {
+    try {
+      const res = await fetch('/api/overview');
+      const d = await res.json();
+      if (!d.success) return;
+
+      const sys = d.system;
+      const stats = d.stats;
+
+      const setInner = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = val;
+      };
+      setInner('stat-restore', stats.restoreAdapters);
+      setInner('stat-mcp', stats.mcps);
+      setInner('stat-design', stats.designBrands);
+      setInner('stat-models', stats.traceModels);
+      setInner('footer-env-line', `${sys.os} · Python ${sys.python}`);
+
+      const setChip = (id, ok) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.innerText = ok ? '就绪' : '缺失';
+        if (ok) el.classList.add('active');
+        else el.classList.remove('active');
+      };
+
+      setChip('env-camoufox', sys.camoufoxReady);
+      setChip('env-ccswitch', sys.ccSwitchDbReady);
+      setChip('env-claude', sys.claudeConfigReady);
+      setChip('env-codex', sys.codexConfigReady);
+      setChip('env-workbuddy', sys.workbuddyReady);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  // Restore
+  async function loadSessions(forcedTool) {
+    const tool = forcedTool || document.getElementById('restore-tool-select').value;
+    logTerm(`扫描 ${tool} 历史会话...`, 'info');
+    const tbody = document.getElementById('session-table-body');
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 16px;">扫描中...</td></tr>`;
+
+    try {
+      const res = await fetch(`/api/restore/sessions?tool=${tool}`);
+      const data = await res.json();
+      if (!data.success) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--status-danger); padding: 16px;">${data.error}</td></tr>`;
+        return;
+      }
+      const list = data.sessions || [];
+      document.getElementById('session-count-text').innerText = `${list.length} 个本地会话`;
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 20px;">未发现本地历史会话</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = list.map(s => `
+        <tr>
+          <td><code style="font-size: 11px;">${s.session_id.substring(0, 16)}</code></td>
+          <td><strong>${escapeHtml(s.title || '无标题')}</strong></td>
+          <td><span class="neu-chip">${s.message_count || 0}</span></td>
+          <td style="font-size: 11px; color: var(--text-muted);">${s.time_human || '-'}</td>
+          <td style="font-size: 11px;">${s.size_human || '-'}</td>
+          <td style="text-align: center;">
+            <button class="neu-btn neu-btn-sm" onclick="runSessionAction('${tool}', '${s.session_id}', 'restore')">恢复</button>
+            <button class="neu-btn neu-btn-sm" onclick="runSessionAction('${tool}', '${s.session_id}', 'export')">导出</button>
+          </td>
+        </tr>
+      `).join('');
+      logTerm(`已载入 ${list.length} 个会话`, 'success');
+    } catch (e) {
+      logTerm(`扫描异常: ${e.message}`, 'err');
+    }
+  }
+
+  async function runSessionAction(tool, sessionId, action) {
+    logTerm(`执行会话 ${action} [${sessionId}]...`, 'info');
+    try {
+      const res = await fetch('/api/restore/execute', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({tool: tool, session_id: sessionId, action: action})
+      });
+      const data = await res.json();
+      if (data.success) {
+        logTerm(`成功: ${data.message || ''}`, 'success');
+        if (data.markdown) {
+          showModal(`导出预览 - ${sessionId}`, `
+            <div style="margin-bottom: 10px;">
+              <button class="neu-btn neu-btn-sm" onclick="navigator.clipboard.writeText(document.getElementById('md-raw-area').innerText)">复制 Markdown</button>
+            </div>
+            <pre id="md-raw-area" style="padding: 12px; border-radius: 8px; box-shadow: var(--neu-inset-sm); max-height: 400px; overflow-y: auto; font-size: 12px; font-family: var(--font-mono); white-space: pre-wrap;">${escapeHtml(data.markdown)}</pre>
+          `);
+        } else {
+          alert(data.message || '会话恢复成功');
+        }
+      } else {
+        alert(`失败: ${data.error}`);
+      }
+    } catch (e) {
+      logTerm(`异常: ${e.message}`, 'err');
+    }
+  }
+
+  // ===========================================================================
+  // Antigravity-Manager Architecture: Account Pools & Fingerprint Sandboxes
+  // ===========================================================================
+  let currentAccountFilter = 'all';
+  let currentAutoRegProvider = 'openai';
+  let accountsListCache = [];
+
+  function selectAutoRegProvider(provider, btn) {
+    currentAutoRegProvider = provider;
+    document.querySelectorAll('.auto-reg-pill').forEach(b => b.classList.remove('active', 'neu-btn-accent'));
+    if (btn) btn.classList.add('active', 'neu-btn-accent');
+    logTerm(`已选定自动注册目标厂商: ${provider.toUpperCase()}`, 'info');
+  }
+
+  function fillRandomEmail() {
+    const randomSuffix = Math.random().toString(36).substring(2, 7);
+    const ts = Date.now().toString().slice(-4);
+    const domains = ['safe-agent.dev', 'temp-mailbox.org', 'shadow-code.net', 'cloud-pool.io'];
+    const domain = domains[Math.floor(Math.random() * domains.length)];
+    const email = `${currentAutoRegProvider}_${randomSuffix}${ts}@${domain}`;
+    const emailInput = document.getElementById('auto-reg-email');
+    if (emailInput) {
+      emailInput.value = email;
+      logTerm(`已生成随机安全邮箱: ${email}`, 'info');
+    }
+  }
+
+  function filterAccountsByProvider(provider, btn) {
+    currentAccountFilter = provider;
+    document.querySelectorAll('.acc-filter-btn').forEach(b => b.classList.remove('active', 'neu-btn-accent'));
+    if (btn) btn.classList.add('active', 'neu-btn-accent');
+    renderAccountsTable();
+  }
+
+  async function loadAccounts() {
+    try {
+      const res = await fetch('/api/accounts/list');
+      const data = await res.json();
+      if (!data.success) {
+        logTerm(`获取账号池失败: ${data.error}`, 'err');
+        return;
+      }
+
+      const stats = data.stats || {};
+      const providers = data.providers || {};
+      accountsListCache = data.accounts || [];
+
+      // Update metrics overview
+      const elTotal = document.getElementById('stat-acc-total');
+      const elTotalDesc = document.getElementById('stat-acc-total-desc');
+      const elActive = document.getElementById('stat-acc-active');
+      const elProfiles = document.getElementById('stat-acc-profiles');
+
+      if (elTotal) elTotal.innerText = stats.total_accounts || 0;
+      const provCount = Array.isArray(providers) ? providers.length : Object.keys(providers).length;
+      if (elTotalDesc) elTotalDesc.innerText = `${provCount} 个厂商智能池`;
+      if (elActive) elActive.innerText = stats.active_accounts || 0;
+      if (elProfiles) elProfiles.innerText = stats.total_profiles || 0;
+
+      renderAccountsTable();
+    } catch (e) {
+      logTerm(`加载账号列表异常: ${e.message}`, 'err');
+    }
+  }
+
+  function renderAccountsTable() {
+    const tbody = document.getElementById('accounts-table-body');
+    if (!tbody) return;
+
+    let list = accountsListCache;
+    if (currentAccountFilter !== 'all') {
+      list = list.filter(a => (a.provider || '').toLowerCase() === currentAccountFilter.toLowerCase());
+    }
+
+    if (list.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="8" style="text-align: center; color: var(--text-muted); padding: 26px;">
+            ${currentAccountFilter === 'all' ? '当前各厂商账号池为空，可通过上方「一键安全自动注册」或「+ 手动录入账号」添加' : '当前厂商池暂无账号，点击上方一键开户自动入池'}
+          </td>
+        </tr>
+      `;
+      return;
+    }
+
+    tbody.innerHTML = list.map(a => {
+      const isAct = Boolean(a.is_active);
+      const provName = (a.provider || 'custom').toUpperCase();
+      const tokenDisplay = a.token ? (a.token.substring(0, 10) + '••••••') : (a.api_key ? (a.api_key.substring(0, 10) + '••••••') : '-');
+      const idOrEmail = a.email || a.id || tokenDisplay;
+      const fpId = a.fingerprint_id || a.profile_dir ? (a.fingerprint_id || a.id) : 'default_fp';
+      const proxy = a.proxy || '直连 (Direct)';
+      const version = a.edition || a.version || 'Standard';
+      const updated = a.updated_at || a.created_at || '-';
+
+      return `
+        <tr style="${isAct ? 'background: rgba(139, 92, 246, 0.04); font-weight: 500;' : ''}">
+          <td>
+            <span class="neu-chip ${isAct ? 'active' : ''}" style="font-size: 11px;">
+              ${provName}
+            </span>
+          </td>
+          <td>
+            <strong style="color: var(--text-main); font-size: 13px;">${escapeHtml(a.name || a.id)}</strong>
+            <br>
+            <code style="font-size: 11px; color: var(--text-muted);">${escapeHtml(idOrEmail)}</code>
+          </td>
+          <td>
+            <span class="neu-chip" style="font-family: var(--font-mono); font-size: 11px; max-width: 170px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="物理隔离 Profile: ${escapeHtml(a.profile_dir || fpId)}">
+              🛡️ ${escapeHtml(fpId)}
+            </span>
+          </td>
+          <td>
+            <small style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">${escapeHtml(proxy)}</small>
+          </td>
+          <td>
+            <span class="neu-chip" style="font-size: 10px;">${escapeHtml(version)}</span>
+          </td>
+          <td style="text-align: center;">
+            <span class="neu-chip ${isAct ? 'active' : ''}" style="font-size: 11px;">
+              ${isAct ? '● 活跃中' : '就绪'}
+            </span>
+          </td>
+          <td>
+            <small style="font-size: 11px; color: var(--text-muted);">${escapeHtml(updated)}</small>
+          </td>
+          <td style="text-align: center;">
+            <div style="display: flex; gap: 6px; justify-content: center;">
+              <button class="neu-btn neu-btn-sm ${isAct ? 'neu-btn-accent' : ''}" onclick="switchAccount('${a.id}', '${a.provider}')" title="一键热切换为当前系统/工具活跃账号">
+                ${isAct ? '当前激活' : '秒级切换'}
+              </button>
+              <button class="neu-btn neu-btn-sm" onclick="launchAccountBrowser('${a.id}', '${a.provider}')" title="以独立指纹环境沙箱唤起 Camoufox 防风控浏览器">
+                指纹打开
+              </button>
+              <button class="neu-btn neu-btn-sm" onclick="deleteAccount('${a.id}', '${a.provider}')" title="从池中移除">
+                🗑️
+              </button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  async function triggerAutoRegister() {
+    const provider = currentAutoRegProvider;
+    let email = (document.getElementById('auto-reg-email').value || '').trim();
+    const proxy = (document.getElementById('auto-reg-proxy').value || '').trim();
+    const btn = document.getElementById('btn-run-auto-register');
+    const statusText = document.getElementById('auto-reg-status-text');
+
+    if (!email) {
+      const rnd = Math.random().toString(36).substring(2, 7);
+      email = `auto_${provider}_${rnd}@safe-pool.io`;
+      document.getElementById('auto-reg-email').value = email;
+    }
+
+    btn.disabled = true;
+    btn.innerText = '⏳ 正在启动独立指纹沙箱环境...';
+    if (statusText) statusText.innerText = `正在为 ${provider.toUpperCase()} 分配独立物理 Profile...`;
+    logTerm(`正在启动 [${provider.toUpperCase()}] 独立防风控指纹沙箱...`, 'info');
+
+    try {
+      const res = await fetch('/api/accounts/auto_register', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          provider: provider,
+          email: email,
+          proxy: proxy
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        logTerm(`✅ [${provider.toUpperCase()}] ${data.message}`, 'success');
+        if (statusText) statusText.innerText = '独立指纹沙箱已就绪！';
+        alert(`🎉【Camoufox 防风控指纹沙箱已启动】\n\n${data.message}\n\n物理 Profile 目录:\n${data.profile_dir || '-'}\n\n完成开户或授权后，可在本页面直接刷新并进行一键秒切。`);
+        loadAccounts();
+      } else {
+        logTerm(`❌ 启动指纹沙箱失败: ${data.error}`, 'err');
+        if (statusText) statusText.innerText = `启动失败: ${data.error}`;
+        alert(`启动失败: ${data.error}`);
+      }
+    } catch (e) {
+      logTerm(`请求沙箱环境异常: ${e.message}`, 'err');
+      alert(`网络异常: ${e.message}`);
+    } finally {
+      btn.disabled = false;
+      btn.innerText = '⚡ 启动独立指纹沙箱进行安全开户';
+      setTimeout(() => { if (statusText) statusText.innerText = ''; }, 6000);
+    }
+  }
+
+  async function switchAccount(id, provider) {
+    logTerm(`正在切换至 [${provider.toUpperCase()}] 账号: ${id}...`, 'info');
+    try {
+      const res = await fetch('/api/accounts/switch', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({id: id, provider: provider})
+      });
+      const d = await res.json();
+      if (d.success) {
+        logTerm(`✅ 账号切换成功: ${d.message}`, 'success');
+        loadAccounts();
+      } else {
+        alert(d.error);
+      }
+    } catch (e) {
+      logTerm(`切换异常: ${e.message}`, 'err');
+    }
+  }
+
+  async function launchAccountBrowser(id, provider) {
+    logTerm(`唤起独立指纹浏览器 (厂商: ${provider}, 账号: ${id})...`, 'info');
+    try {
+      const res = await fetch('/api/accounts/launch_browser', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({id: id, provider: provider})
+      });
+      const d = await res.json();
+      if (d.success) {
+        logTerm(`✅ Camoufox 防风控指纹浏览器已启动 [Profile: ${d.profile_dir}]`, 'success');
+      } else {
+        alert(d.error);
+      }
+    } catch (e) {
+      logTerm(`唤起浏览器异常: ${e.message}`, 'err');
+    }
+  }
+
+  async function deleteAccount(id, provider) {
+    if (!confirm(`确定从 ${provider.toUpperCase()} 账号池中移除 [${id}] 吗？`)) return;
+    try {
+      const res = await fetch('/api/accounts/delete', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({id: id, provider: provider})
+      });
+      const d = await res.json();
+      if (d.success) {
+        logTerm(`已从账号池移除: ${id}`, 'warn');
+        loadAccounts();
+      } else {
+        alert(d.error);
+      }
+    } catch (e) {
+      logTerm(`删除失败: ${e.message}`, 'err');
+    }
+  }
+
+  function showAddAccountModal() {
+    showModal('手动录入账号至厂商池', `
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div class="grid-2">
+          <div>
+            <label style="font-size: 11px; font-weight: 700; color: var(--text-muted);">目标厂商平台</label>
+            <select class="neu-input" id="modal-acc-provider" style="margin-top: 4px;">
+              <option value="openai">OpenAI / ChatGPT (GPT)</option>
+              <option value="workbuddy">WorkBuddy AI</option>
+              <option value="qoder">Qoder</option>
+              <option value="trae">Trae</option>
+              <option value="gemini">Google Gemini / Antigravity</option>
+              <option value="grok">xAI Grok</option>
+              <option value="tavily">Tavily</option>
+              <option value="custom">自定义厂商</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size: 11px; font-weight: 700; color: var(--text-muted);">账号名称 / 备注</label>
+            <input type="text" class="neu-input" id="modal-acc-name" placeholder="如 Team 主账号 01" style="margin-top: 4px;">
+          </div>
+        </div>
+        <div class="grid-2">
+          <div>
+            <label style="font-size: 11px; font-weight: 700; color: var(--text-muted);">账号邮箱 / UID</label>
+            <input type="text" class="neu-input" id="modal-acc-email" placeholder="如 user@pool.dev" style="margin-top: 4px;">
+          </div>
+          <div>
+            <label style="font-size: 11px; font-weight: 700; color: var(--text-muted);">自定义指纹 Profile ID (可选)</label>
+            <input type="text" class="neu-input" id="modal-acc-fp" placeholder="留空自动分配独立指纹沙箱" style="margin-top: 4px;">
+          </div>
+        </div>
+        <div>
+          <label style="font-size: 11px; font-weight: 700; color: var(--text-muted);">API Key / Access Token / Session Secret</label>
+          <input type="password" class="neu-input" id="modal-acc-token" placeholder="sk-... 或 Bearer Token" style="margin-top: 4px;">
+        </div>
+        <div>
+          <label style="font-size: 11px; font-weight: 700; color: var(--text-muted);">绑定代理 (可选，如 http://127.0.0.1:7890)</label>
+          <input type="text" class="neu-input" id="modal-acc-proxy" placeholder="留空则直连" style="margin-top: 4px;">
+        </div>
+      </div>
+    `, `
+      <button class="neu-btn neu-btn-sm" onclick="closeModal()">取消</button>
+      <button class="neu-btn neu-btn-accent neu-btn-sm" onclick="saveManualAccount()">保存入池</button>
+    `);
+  }
+
+  async function saveManualAccount() {
+    const provider = document.getElementById('modal-acc-provider').value;
+    const name = document.getElementById('modal-acc-name').value.trim();
+    const email = document.getElementById('modal-acc-email').value.trim();
+    const fp = document.getElementById('modal-acc-fp').value.trim();
+    const token = document.getElementById('modal-acc-token').value.trim();
+    const proxy = document.getElementById('modal-acc-proxy').value.trim();
+
+    if (!name && !email) {
+      alert('请填写账号名称或邮箱');
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/accounts/save', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          provider: provider,
+          name: name || email,
+          email: email,
+          fingerprint_id: fp,
+          token: token,
+          api_key: token,
+          proxy: proxy
+        })
+      });
+      const d = await res.json();
+      if (d.success) {
+        logTerm(`账号已保存至 [${provider.toUpperCase()}] 厂商池`, 'success');
+        closeModal();
+        loadAccounts();
+      } else {
+        alert(d.error);
+      }
+    } catch (e) {
+      logTerm(`保存失败: ${e.message}`, 'err');
+    }
+  }
+
+  // ===========================================================================
+  // MCP Marketplace & Plugin Management
+  // ===========================================================================
+  function switchMcpSubTab(tab) {
+    document.querySelectorAll('.mcp-subtab-btn').forEach(b => b.classList.remove('active', 'neu-btn-accent'));
+    const activeBtn = document.getElementById('btn-mcp-' + tab);
+    if (activeBtn) activeBtn.classList.add('active', 'neu-btn-accent');
+
+    const paneMarket = document.getElementById('mcp-pane-market');
+    const paneInstalled = document.getElementById('mcp-pane-installed');
+    const paneCustom = document.getElementById('mcp-pane-custom');
+
+    if (paneMarket) paneMarket.style.display = tab === 'market' ? 'block' : 'none';
+    if (paneInstalled) paneInstalled.style.display = tab === 'installed' ? 'block' : 'none';
+    if (paneCustom) paneCustom.style.display = tab === 'custom' ? 'block' : 'none';
+
+    if (tab === 'market') loadMarketplace();
+    else if (tab === 'installed') { loadMcpList(); loadSkills(); loadDesignBrands(); }
+  }
+
+  let marketplaceData = [];
+
+  async function loadMarketplace() {
+    try {
+      const res = await fetch('/api/mcp/marketplace');
+      const data = await res.json();
+      if (!data.success) return;
+
+      marketplaceData = data.marketplace || [];
+      const grid = document.getElementById('marketplace-grid');
+      if (!grid) return;
+
+      grid.innerHTML = marketplaceData.map(m => `
+        <div class="neu-card" style="padding: 18px 20px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+              <span class="neu-chip">${escapeHtml(m.category || 'MCP')}</span>
+              <span style="font-size: 11px; color: var(--text-muted);">★ ${m.rating || '4.9'} · ${m.installs || '10k'}</span>
+            </div>
+            <h3 style="font-size: 15px; font-weight: 800; color: var(--text-main); margin-bottom: 4px;">${escapeHtml(m.name)}</h3>
+            <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">by ${escapeHtml(m.author || 'Official')}</div>
+            <p style="font-size: 12px; color: var(--text-main); line-height: 1.5; margin-bottom: 12px;">${escapeHtml(m.description)}</p>
+            
+            <div style="display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 12px;">
+              ${(m.tags || []).map(t => `<span class="neu-chip" style="font-size: 10px;">#${escapeHtml(t)}</span>`).join('')}
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 8px; align-items: center; justify-content: space-between; margin-top: 10px;">
+            ${m.is_installed 
+              ? `<span class="neu-chip active" style="font-size: 11px;">已安装</span>
+                 <button class="neu-btn neu-btn-sm" onclick="uninstallMcp('${m.id}')">卸载</button>`
+              : `<button class="neu-btn neu-btn-accent neu-btn-sm" style="flex-grow: 1;" onclick="installMarketplaceMcp('${m.id}')">
+                   ⚡ 一键安装到本地
+                 </button>`
+            }
+            ${m.homepage ? `<a href="${m.homepage}" target="_blank" class="neu-btn neu-btn-sm" style="text-decoration: none;" title="查看主页与文档">↗</a>` : ''}
+          </div>
+        </div>
+      `).join('');
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async function installMarketplaceMcp(id) {
+    const item = marketplaceData.find(m => m.id === id);
+    if (!item) return;
+    logTerm(`安装云端 MCP 插件 [${item.name}]...`, 'info');
+    try {
+      const res = await fetch('/api/mcp/install', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(item)
+      });
+      const d = await res.json();
+      if (d.success) {
+        logTerm(`插件安装完成: ${item.name}`, 'success');
+        loadMarketplace();
+        loadMcpList();
+      } else {
+        alert(d.error);
+      }
+    } catch (e) {
+      logTerm(`安装失败: ${e.message}`, 'err');
+    }
+  }
+
+  async function uninstallMcp(id) {
+    if (!confirm(`确定卸载 MCP 插件 [${id}] 吗？`)) return;
+    logTerm(`卸载 MCP 插件 [${id}]...`, 'warn');
+    try {
+      const res = await fetch('/api/mcp/uninstall', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({id: id})
+      });
+      const d = await res.json();
+      if (d.success) {
+        logTerm(`插件已卸载: ${id}`, 'success');
+        loadMarketplace();
+        loadMcpList();
+      } else {
+        alert(d.error);
+      }
+    } catch (e) {
+      logTerm(e.message, 'err');
+    }
+  }
+
+  async function submitCustomMcp() {
+    const id = document.getElementById('custom-mcp-id').value.trim();
+    const name = document.getElementById('custom-mcp-name').value.trim();
+    const type = document.getElementById('custom-mcp-type').value;
+    const cmd = document.getElementById('custom-mcp-cmd').value.trim();
+    const argsRaw = document.getElementById('custom-mcp-args').value.trim();
+    const desc = document.getElementById('custom-mcp-desc').value.trim();
+
+    if (!id || !cmd) {
+      alert('请填写插件 ID 与启动命令/URL');
+      return;
+    }
+
+    const args = argsRaw ? argsRaw.split(/[,\s]+/).filter(Boolean) : [];
+
+    logTerm(`安装自定义 MCP 插件 [${id}]...`, 'info');
+    try {
+      const res = await fetch('/api/mcp/install', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          id: id,
+          name: name || id,
+          type: type,
+          command: cmd,
+          url: cmd,
+          args: args,
+          description: desc
+        })
+      });
+      const d = await res.json();
+      if (d.success) {
+        logTerm(`自定义插件已安装: ${id}`, 'success');
+        alert('自定义插件已安装并写入本地配置！');
+        switchMcpSubTab('installed');
+      } else {
+        alert(d.error);
+      }
+    } catch (e) {
+      logTerm(e.message, 'err');
+    }
+  }
+
+  // MCP & Skills
+  async function loadMcpList() {
+    try {
+      const res = await fetch('/api/mcp/list');
+      const data = await res.json();
+      if (!data.success) return;
+
+      const tbody = document.getElementById('mcp-table-body');
+      const mcps = data.mcps || [];
+      tbody.innerHTML = mcps.map(m => `
+        <tr>
+          <td><strong>${m.name}</strong></td>
+          <td><span class="neu-chip">${m.transport || 'stdio'}</span></td>
+          <td><code style="font-size: 11px;">${escapeHtml(m.command || '')} ${escapeHtml((m.args || []).join(' '))}</code></td>
+          <td style="text-align: center;">
+            <button class="neu-btn neu-btn-sm" onclick="syncSingleMcp('${m.name}')">同步</button>
+          </td>
+        </tr>
+      `).join('');
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async function syncAllMcp() {
+    logTerm('全端同步 MCP...', 'info');
+    try {
+      const res = await fetch('/api/mcp/sync', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({target: 'all'})
+      });
+      const data = await res.json();
+      if (data.success) logTerm('全端同步完成', 'success');
+      else logTerm(data.error, 'err');
+    } catch (e) {
+      logTerm(e.message, 'err');
+    }
+  }
+
+  async function syncSelectedMcp() {
+    const target = document.getElementById('mcp-sync-target-select').value;
+    logTerm(`同步至目标 [${target}]...`, 'info');
+    try {
+      const res = await fetch('/api/mcp/sync', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({target: target})
+      });
+      const data = await res.json();
+      if (data.success) logTerm(`[${target}] 同步成功`, 'success');
+      else logTerm(data.error, 'err');
+    } catch (e) {
+      logTerm(e.message, 'err');
+    }
+  }
+
+  async function syncSingleMcp(name) {
+    execCmd(`python skills/tools/skill_manager.py --mcp-sync single --mcp-name ${name}`);
+  }
+
+  async function loadSkills() {
+    try {
+      const res = await fetch('/api/skills/list');
+      const data = await res.json();
+      if (!data.success) return;
+
+      const tbody = document.getElementById('skills-table-body');
+      const list = data.skills || [];
+      tbody.innerHTML = list.map(s => `
+        <tr>
+          <td><strong>${s.name}</strong></td>
+          <td><span class="neu-chip ${s.is_active ? 'active' : ''}">${s.is_active ? '开启' : '关闭'}</span></td>
+          <td style="text-align: center;">
+            <button class="neu-btn neu-btn-sm" onclick="toggleSkill('${s.name}', ${!s.is_active})">
+              ${s.is_active ? '禁用' : '激活'}
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async function toggleSkill(name, enable) {
+    try {
+      const res = await fetch('/api/skills/toggle', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({name: name, enable: enable})
+      });
+      const data = await res.json();
+      if (data.success) loadSkills();
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async function applyProfile(profile) {
+    logTerm(`应用预设: ${profile}...`, 'info');
+    try {
+      const res = await fetch('/api/skills/profile/apply', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({profile: profile})
+      });
+      const data = await res.json();
+      if (data.success) {
+        logTerm(`预设 [${profile}] 应用成功`, 'success');
+        loadSkills();
+      } else {
+        alert(data.error);
+      }
+    } catch (e) {
+      logTerm(e.message, 'err');
+    }
+  }
+
+  async function loadDesignBrands() {
+    try {
+      const res = await fetch('/api/skills/design/list');
+      const data = await res.json();
+      if (!data.success) return;
+      designBrandsData = data.brands || [];
+      renderDesignBrands(designBrandsData);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  function renderDesignBrands(list) {
+    const grid = document.getElementById('design-brands-grid');
+    grid.innerHTML = list.slice(0, 50).map(b => `
+      <div style="padding: 10px; border-radius: 8px; box-shadow: var(--neu-raised-sm); display: flex; align-items: center; justify-content: space-between;">
+        <span style="font-weight: 700; font-size: 12px;">${b.name}</span>
+        <div style="display: flex; gap: 4px;">
+          <button class="neu-btn neu-btn-sm" onclick="previewDesignBrand('${b.name}')">预览</button>
+          <button class="neu-btn neu-btn-sm" onclick="injectDesignBrand('${b.name}')">注入</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function filterDesignBrands(q) {
+    const val = q.toLowerCase().trim();
+    if (!val) {
+      renderDesignBrands(designBrandsData);
+      return;
+    }
+    renderDesignBrands(designBrandsData.filter(b => b.name.toLowerCase().includes(val)));
+  }
+
+  async function previewDesignBrand(brand) {
+    try {
+      const res = await fetch(`/api/skills/design/preview?brand=${brand}`);
+      const data = await res.json();
+      if (data.success) {
+        showModal(`规范预览 - ${brand}`, `
+          <div style="margin-bottom: 10px;">
+            <button class="neu-btn neu-btn-accent neu-btn-sm" onclick="injectDesignBrand('${brand}'); closeModal();">注入此规范至项目根目录</button>
+          </div>
+          <pre style="padding: 12px; border-radius: 8px; box-shadow: var(--neu-inset-sm); max-height: 400px; overflow-y: auto; font-size: 12px; font-family: var(--font-mono); white-space: pre-wrap;">${escapeHtml(data.content || '')}</pre>
+        `);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async function injectDesignBrand(brand) {
+    logTerm(`注入规范 [${brand}]...`, 'info');
+    try {
+      const res = await fetch('/api/skills/design/inject', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({brand: brand})
+      });
+      const data = await res.json();
+      if (data.success) {
+        logTerm(`注入完成: ${data.message}`, 'success');
+        alert(data.message);
+      } else {
+        alert(data.error);
+      }
+    } catch (e) {
+      logTerm(e.message, 'err');
+    }
+  }
+
+  // Instruct & Doctor
+  async function runDoctorCheck() {
+    logTerm('运行智能体环境自检...', 'info');
+    const box = document.getElementById('doctor-output-box');
+    box.innerText = '自检中...';
+    try {
+      const res = await fetch('/api/instruct/status');
+      const data = await res.json();
+      if (data.success) {
+        box.innerText = data.output || '自检正常完成';
+        logTerm('自检完成', 'success');
+      } else {
+        box.innerText = data.error;
+      }
+    } catch (e) {
+      box.innerText = e.message;
+    }
+  }
+
+  // ===========================================================================
+  // Unrestricted (破限中枢)
+  // ===========================================================================
+  let unrTemplates = [];
+  let activeTemplateId = 'unrestricted_executor';
+
+  async function loadUnrestrictedStatus() {
+    try {
+      const res = await fetch('/api/unrestricted/status');
+      const data = await res.json();
+      if (!data.success) return;
+
+      const st = data.status || {};
+      const badge = document.getElementById('unr-master-badge');
+      const desc = document.getElementById('unr-master-desc');
+      if (!badge || !desc) return;
+
+      if (st.is_unrestricted) {
+        badge.innerText = '⚡ 已破限 (UNRESTRICTED 激活)';
+        badge.classList.add('active');
+        badge.style.color = 'var(--accent-cyan)';
+        desc.innerHTML = `当前处于<strong>无约束沙箱纯净执行器模式</strong>（已解除道德说教与虚假拒答，最后更新: ${st.last_updated || '刚刚'}）。已注入宿主: <code>${(st.applied_targets || []).length} 个目标文件</code>`;
+      } else {
+        badge.innerText = '🛡️ 默认约束模式 (PRISTINE)';
+        badge.classList.remove('active');
+        badge.style.color = 'var(--text-muted)';
+        desc.innerText = '当前为官方初始安全基线状态，点击「一键应用破限状态」解除限制并自动备份。';
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async function loadUnrestrictedTemplates() {
+    try {
+      const res = await fetch('/api/unrestricted/templates');
+      const data = await res.json();
+      if (!data.success) return;
+
+      unrTemplates = data.templates || [];
+      const listEl = document.getElementById('unr-templates-list');
+      if (!listEl) return;
+
+      listEl.innerHTML = unrTemplates.map((t, idx) => `
+        <div class="neu-card" style="padding: 14px 16px; cursor: pointer; border: 1px solid ${t.id === activeTemplateId ? 'var(--accent-cyan)' : 'transparent'};" onclick="selectUnrestrictedTemplate('${t.id}')">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <strong style="font-size: 13px; color: var(--text-main);">${escapeHtml(t.name)}</strong>
+            <span class="neu-chip ${t.id === activeTemplateId ? 'active' : ''}" style="font-size: 10px;">${escapeHtml(t.badge)}</span>
+          </div>
+          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.4;">${escapeHtml(t.description)}</div>
+        </div>
+      `).join('');
+
+      const active = unrTemplates.find(t => t.id === activeTemplateId) || unrTemplates[0];
+      if (active && document.getElementById('unr-prompt-editor')) {
+        document.getElementById('unr-prompt-editor').value = active.content;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  function selectUnrestrictedTemplate(tid) {
+    activeTemplateId = tid;
+    const active = unrTemplates.find(t => t.id === tid);
+    if (active && document.getElementById('unr-prompt-editor')) {
+      document.getElementById('unr-prompt-editor').value = active.content;
+    }
+    loadUnrestrictedTemplates();
+  }
+
+  function copyActiveUnrPrompt() {
+    const text = document.getElementById('unr-prompt-editor').value;
+    navigator.clipboard.writeText(text);
+    logTerm('已复制破限提示词规则', 'success');
+  }
+
+  async function applyUnrestricted() {
+    logTerm('一键应用破限状态 (Injecting Unrestricted rules)...', 'info');
+    try {
+      const res = await fetch('/api/unrestricted/apply', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({template_id: activeTemplateId})
+      });
+      const d = await res.json();
+      if (d.success) {
+        logTerm(d.message, 'success');
+        alert(d.message);
+        loadUnrestrictedStatus();
+      } else {
+        alert(d.error);
+      }
+    } catch (e) {
+      logTerm(`应用异常: ${e.message}`, 'err');
+    }
+  }
+
+  async function applyCustomUnrestricted() {
+    const customContent = document.getElementById('unr-prompt-editor').value.trim();
+    if (!customContent) {
+      alert('破限提示词不能为空');
+      return;
+    }
+    logTerm('以自定义规则应用破限状态...', 'info');
+    try {
+      const res = await fetch('/api/unrestricted/apply', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          template_id: activeTemplateId,
+          custom_content: customContent
+        })
+      });
+      const d = await res.json();
+      if (d.success) {
+        logTerm(d.message, 'success');
+        alert(d.message);
+        loadUnrestrictedStatus();
+      } else {
+        alert(d.error);
+      }
+    } catch (e) {
+      logTerm(`应用异常: ${e.message}`, 'err');
+    }
+  }
+
+  async function restoreUnrestricted() {
+    if (!confirm('确定要恢复为原始安全基线状态吗？将从备份自动还原所有宿主规则文件。')) return;
+    logTerm('一键恢复原始安全状态 (Restoring Pristine baselines)...', 'warn');
+    try {
+      const res = await fetch('/api/unrestricted/restore', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'}
+      });
+      const d = await res.json();
+      if (d.success) {
+        logTerm(d.message, 'success');
+        alert(d.message);
+        loadUnrestrictedStatus();
+      } else {
+        alert(d.error);
+      }
+    } catch (e) {
+      logTerm(`恢复异常: ${e.message}`, 'err');
+    }
+  }
+
+  // ModelTrace
+  async function loadModelTraceInfo() {
+    try {
+      await fetch('/api/modeltrace/info');
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  function copyPrompt(text) {
+    navigator.clipboard.writeText(text);
+    logTerm('挑战提示词已复制', 'success');
+  }
+
+  async function analyzeModelOutput() {
+    const text = document.getElementById('trace-response-input').value.trim();
+    if (!text) {
+      alert('请粘贴回复内容');
+      return;
+    }
+    logTerm('计算特征指纹...', 'info');
+    try {
+      const res = await fetch('/api/modeltrace/analyze', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({output_text: text})
+      });
+      const data = await res.json();
+      if (data.success) {
+        document.getElementById('trace-verdict-tag').innerText = '推断完成';
+        document.getElementById('trace-verdict-text').innerText = data.verdict;
+
+        const listEl = document.getElementById('trace-prob-list');
+        const probs = data.probabilities || {};
+        listEl.innerHTML = Object.keys(probs).map(m => {
+          const pct = Math.round(probs[m] * 100);
+          return `
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 11px;">
+                <span>${m}</span>
+                <span style="font-family: var(--font-mono); font-weight: 700;">${pct}%</span>
+              </div>
+              <div class="neu-progress-rail">
+                <div class="neu-progress-bar" style="width: ${pct}%;"></div>
+              </div>
+            </div>
+          `;
+        }).join('');
+        logTerm(`测谎判定: ${data.verdict}`, 'success');
+      } else {
+        alert(data.error);
+      }
+    } catch (e) {
+      logTerm(e.message, 'err');
+    }
+  }
+
+  async function testLiveApiTrace() {
+    const url = document.getElementById('trace-api-url').value.trim();
+    const key = document.getElementById('trace-api-key').value.trim();
+    const model = document.getElementById('trace-api-model').value.trim();
+    if (!url || !model) {
+      alert('请填写 Base URL 和模型名称');
+      return;
+    }
+    logTerm(`向 ${url} 发送探测请求...`, 'info');
+    try {
+      const res = await fetch('/api/modeltrace/test_api', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({base_url: url, api_key: key, model: model, prompt: '250 numbers'})
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert(`探测完成！\n模型: ${model}\n结论: ${data.verdict}\n耗时: ${data.latency_ms}ms`);
+      } else {
+        alert(data.error);
+      }
+    } catch (e) {
+      logTerm(e.message, 'err');
+    }
+  }
+
+  async function launchModelTraceWeb() {
+    logTerm('拉起 ModelTrace 独立服务...', 'info');
+    try {
+      const res = await fetch('/api/modeltrace/launch_web', {method: 'POST'});
+      const data = await res.json();
+      if (data.success) logTerm('独立 Web 服务已拉起', 'success');
+      else logTerm(data.error, 'err');
+    } catch (e) {
+      logTerm(e.message, 'err');
+    }
+  }
+
+  // External Tools
+  async function openExternalUrl(url) {
+    try {
+      await fetch('/api/others/open', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({url: url})
+      });
+    } catch (e) {
+      window.open(url, '_blank');
+    }
+  }
+
+  function escapeHtml(t) {
+    if (!t) return '';
+    return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    loadOverview();
+    loadSessions();
+    loadAccounts();
+  });
+</script>
+
+</body>
+</html>

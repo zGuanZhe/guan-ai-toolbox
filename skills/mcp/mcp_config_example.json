@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "guans-ai-toolbox": {
+      "command": "python",
+      "args": [
+        "D:\\Test\\观的ai工具箱\\skills\\mcp\\server_template.py"
+      ],
+      "env": {}
+    }
+  }
+}

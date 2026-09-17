@@ -1,0 +1,14 @@
+{
+  "claude-v1-standard": {
+    "markdown_file": "claude-v1-standard.md",
+    "markdown_sha256": "e96afc8a97868a69045dd9bd781e4b117ce7a725636184a0ebc5fba4b91116ec",
+    "size_bytes": 3357,
+    "description": "Standard deterministic cognitive compiler execution contract for Claude Code"
+  },
+  "claude-v2-hyperdrive": {
+    "markdown_file": "claude-v2-hyperdrive.md",
+    "markdown_sha256": "19f32f0a3f0cadec38b1486d31d941feae70930e2c6800cb45cb35f307f7a0f7",
+    "size_bytes": 2115,
+    "description": "High-throughput unrestricted hyperdrive mode for advanced reverse engineering and security research"
+  }
+}

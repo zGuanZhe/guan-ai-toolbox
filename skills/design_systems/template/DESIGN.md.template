@@ -1,0 +1,39 @@
+# [Product/Brand Name] DESIGN.md
+> Executable UI Design Specification for AI Coding Agents (Cursor, Claude Code, Lovable, v0)
+
+## 1. Visual Identity & Brand Philosophy
+- **Personality**: [e.g., Minimal, High-Precision, Developer-First, Clean]
+- **Core Aesthetic**: [e.g., Monospaced accents, subtle borders, high contrast, dark-first]
+
+## 2. Color System (Tokens)
+- **Background**:
+  - Primary: `#0D0D11`
+  - Secondary/Surface: `#16161F`
+  - Elevated/Modal: `#1F1F2C`
+- **Foreground / Text**:
+  - Primary: `#F4F4F7`
+  - Secondary: `#A1A1B2`
+  - Muted: `#68687D`
+- **Accent / Brand**:
+  - Primary Brand: `#6366F1` (Indigo)
+  - Success: `#10B981` (Emerald)
+  - Warning: `#F59E0B` (Amber)
+  - Destructive: `#EF4444` (Red)
+- **Borders & Dividers**:
+  - Subtle Border: `rgba(255, 255, 255, 0.08)`
+  - Active Border: `rgba(99, 102, 241, 0.4)`
+
+## 3. Typography Rules
+- **Display / Headers**: `font-sans font-bold tracking-tight`
+- **Body Text**: `font-sans text-sm leading-relaxed text-slate-300`
+- **Code / Monospace**: `font-mono text-xs text-indigo-300`
+
+## 4. Spacing & Elevation
+- **Card Padding**: `p-4 sm:p-6`
+- **Border Radius**: `rounded-xl` for cards, `rounded-lg` for buttons/inputs
+- **Shadows**: Subtle inner glow `shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]`
+
+## 5. Interaction States & Transitions
+- **Hover**: Subtle brightness elevation `hover:bg-white/[0.04]`
+- **Active / Press**: `scale-[0.99] transition-transform`
+- **Transition Duration**: `duration-150 ease-out`

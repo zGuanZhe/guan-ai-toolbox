@@ -1,0 +1,14 @@
+{
+  "source": "ModelTrace unified fingerprint library",
+  "normalization": "UTF-8 with LF line endings",
+  "bankPath": "data/unified_bank.json",
+  "scorerPath": "static/fingerprint-core.js",
+  "bankSha256": "6a3f7e4d703990a2322cf535020309380ca858654345d8fe5db278578568bad3",
+  "scorerSha256": "83fa5bd611e18f8339122582335123c8ea168ed242298bb31f4e363abeeb6e4a",
+  "bankBuiltAt": "2026-09-05T02:13:56.070726+00:00",
+  "modelCount": 13,
+  "sameContextCalibrated": false,
+  "multilingualCalibrated": false,
+  "sharedStylesPath": "static/styles.css",
+  "sharedStylesSha256": "ec07af2adf4f245a6dbd7d29c9202974d6a1ba8991d02fae6c0422241ac7bf28"
+}

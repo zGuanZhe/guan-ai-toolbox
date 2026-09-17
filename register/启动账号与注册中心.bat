@@ -1,0 +1,1 @@
+@echo off\nchcp 65001 >nul\ntitle 观的 AI 工具箱 - 多厂家自动注册与账号池中枢\npython "%~dp0main.py"\nif errorlevel 1 pause\n

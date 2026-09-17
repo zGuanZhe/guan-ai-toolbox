@@ -1,0 +1,154 @@
+{
+  "updated_at": "2026-09-17",
+  "categories": [
+    {
+      "id": "agent_skills_registries",
+      "name": "AI Agent 技能注册表与包管理生态",
+      "description": "基于 SKILL.md 规范的在线技能注册表、包管理器与开源共享库",
+      "platforms": [
+        {
+          "name": "skills.sh",
+          "url": "https://skills.sh",
+          "type": "Package Manager / Registry",
+          "cli": "npx skills <find|add|list>",
+          "description": "AI Agent 生态的事实标准包管理器。支持一键将 GitHub 上的技能库安装至 Claude Code、Cursor、Copilot、Gemini、Windsurf 等 40+ 智能体。",
+          "features": ["一键 CLI 安装", "开放标准目录", "跨 Agent 兼容", "版本管理"]
+        },
+        {
+          "name": "Anthropic Official Skills",
+          "url": "https://github.com/anthropics/skills",
+          "type": "Official Reference Hub",
+          "cli": "git clone https://github.com/anthropics/skills",
+          "description": "Anthropic 官方 Agent Skills 规范标准库与生产级参考实现，提供 docx、pdf、pptx、xlsx、mcp-builder、doc-coauthoring 等核心工程技能。",
+          "features": ["官方标准 Spec", "高稳定性", "免配置即插即用", "渐进式披露示范"]
+        },
+        {
+          "name": "VoltAgent / awesome-agent-skills",
+          "url": "https://github.com/VoltAgent/awesome-agent-skills",
+          "type": "Community Mega Directory",
+          "cli": "git clone https://github.com/VoltAgent/awesome-agent-skills",
+          "description": "全网收录最全的 Agent 技能汇总库，精选 1000+ 技能，覆盖主流模型与全部主流 IDE。",
+          "features": ["海量收录", "分类精细", "多模型适配", "活跃社区提交"]
+        },
+        {
+          "name": "affaan-m/ECC (Everything Claude Code)",
+          "url": "https://github.com/affaan-m/ECC",
+          "type": "Engineering Suite",
+          "cli": "git clone https://github.com/affaan-m/ECC",
+          "description": "292 个工程技能、68 个专业 Agent、94 个命令垫片，覆盖 7 大主流 IDE 宿主环境的全能工具箱。",
+          "features": ["多宿主适配器", "专业 Agent 矩阵", "工程级规约", "即插即用"]
+        },
+        {
+          "name": "Tech-Leads-Club / agent-skills",
+          "url": "https://github.com/tech-leads-club/agent-skills",
+          "type": "Hardened Enterprise Registry",
+          "cli": "git clone https://github.com/tech-leads-club/agent-skills",
+          "description": "专注安全与信任的企业加固型技能库，所有技能均通过静态代码扫描与漏洞审计，杜绝恶意提权与数据外泄。",
+          "features": ["静态安全扫描", "OWASP 漏洞防护", "无恶意脚本", "企业级准入"]
+        },
+        {
+          "name": "addyosmani / agent-skills",
+          "url": "https://github.com/addyosmani/agent-skills",
+          "type": "SDLC Workflow Hub",
+          "cli": "git clone https://github.com/addyosmani/agent-skills",
+          "description": "Google 架构师 Addy Osmani 主导的软件全生命周期 (SDLC) 生产级技能集，覆盖 Spec、Plan、Build、Test、Review 与 Ship。",
+          "features": ["全流程覆盖", "大厂生产实践", "高一致性", "TDD 深度集成"]
+        },
+        {
+          "name": "SkillsMP / OpenAgentSkill",
+          "url": "https://skillsmp.com",
+          "type": "Search & Marketplace",
+          "cli": "Web / API",
+          "description": "新一代 AI Agent 技能聚合搜索引擎与市场，支持实时检索 GitHub 技能、打分与版本变动追踪。",
+          "features": ["全文语义检索", "热度榜单", "在线预览", "一键导入"]
+        },
+        {
+          "name": "SkillHub (iFlytek)",
+          "url": "https://github.com/iflytek/skillhub",
+          "type": "Self-Hosted Private Registry",
+          "cli": "Docker / Kubernetes",
+          "description": "面向企业私有化部署的安全技能注册中心，支持团队内部私有技能共享、权限管控与代码审计。",
+          "features": ["私有化部署", "团队权限管控", "企业内网支持", "安全隔离"]
+        }
+      ]
+    },
+    {
+      "id": "design_systems",
+      "name": "前端与 UI/UX 设计系统规范平台 (DESIGN.md)",
+      "description": "为 AI 编程提供视觉防漂移与设计语言对齐的规范平台",
+      "platforms": [
+        {
+          "name": "getdesign.md / awesome-design-md",
+          "url": "https://getdesign.md",
+          "type": "Design System Spec Hub",
+          "cli": "https://github.com/VoltAgent/awesome-design-md",
+          "description": "74+ 国际顶级科技品牌（Apple、Stripe、Linear、Vercel、Figma、Notion 等）完整 DESIGN.md 规范库，彻底根治大模型前端色彩漂移与样式杂乱。",
+          "features": ["74+ 国际品牌", "标准 Token/色号", "排版与间距规约", "暗色模式对齐"]
+        },
+        {
+          "name": "cursor.directory",
+          "url": "https://cursor.directory",
+          "type": "Rules & System Prompts",
+          "cli": "Web / Direct Copy",
+          "description": "全网最活跃的 Cursor Rules 与技术栈特定规范库，收录 5000+ 前端（Next.js、Tailwind、Vue、React）与后端开发规则。",
+          "features": ["技术栈细分", "社区高赞筛选", "即拷即用", "持续更新"]
+        }
+      ]
+    },
+    {
+      "id": "mcp_registries",
+      "name": "Model Context Protocol (MCP) 在线中枢与注册表",
+      "description": "大模型与外部工具/数据/服务连接的标准协议中枢",
+      "platforms": [
+        {
+          "name": "Smithery.ai",
+          "url": "https://smithery.ai",
+          "type": "Global MCP Registry",
+          "cli": "npx -y @smithery/cli install <mcp-name>",
+          "description": "全球规模最大的 MCP Server 注册与搜索引擎，提供超过 1500+ 个已验证 MCP 服务的快速检索、一键安装与配置生成。",
+          "features": ["海量 MCP 收录", "一键生成配置", "支持多种传输协议", "在线可用性检测"]
+        },
+        {
+          "name": "Glama.ai",
+          "url": "https://glama.ai/mcp",
+          "type": "Interactive MCP Directory",
+          "cli": "Web",
+          "description": "精选 MCP 服务交互式探索目录与测试沙箱，支持在线测试 MCP 协议响应与兼容性。",
+          "features": ["交互式沙箱", "精选高质量列表", "即时文档预览", "架构示意图"]
+        },
+        {
+          "name": "PulseMCP",
+          "url": "https://pulsemcp.com",
+          "type": "MCP Ecosystem Radar",
+          "cli": "Web / Newsletter",
+          "description": "MCP 生态动态雷达，实时监测全球最新发布的 MCP Server、使用趋势、GitHub 增长与安全通报。",
+          "features": ["实时生态雷达", "每周精选周刊", "GitHub 增长指标", "协议更新跟进"]
+        },
+        {
+          "name": "modelcontextprotocol/servers",
+          "url": "https://github.com/modelcontextprotocol/servers",
+          "type": "Official Reference Servers",
+          "cli": "git clone https://github.com/modelcontextprotocol/servers",
+          "description": "Anthropic / MCP 官方参考服务器实现集，包含 Filesystem, PostgreSQL, SQLite, Git, Puppeteer, Brave Search, Fetch 等官方基准。",
+          "features": ["官方权威保障", "协议原生对齐", "低延迟高性能", "代码规范范式"]
+        },
+        {
+          "name": "Composio.dev",
+          "url": "https://composio.dev",
+          "type": "Enterprise Tooling Mesh",
+          "cli": "pip install composio-core",
+          "description": "支持 100+ 商业 SaaS、开发者平台（GitHub、Jira、Slack、Notion 等）一键连接的大模型工具中台，支持 MCP 协议无缝桥接。",
+          "features": ["100+ SaaS 互联", "OAuth 鉴权托管", "生产级高可用", "跨 Agent 协议转换"]
+        },
+        {
+          "name": "LlamaHub",
+          "url": "https://llamahub.ai",
+          "type": "Agent Tools & Data Loaders",
+          "cli": "pip install llama-index-tools-*",
+          "description": "LlamaIndex 旗下的社区工具包与数据连接器仓库，提供 500+ 数据源与智能体执行工具。",
+          "features": ["丰富数据连接器", "结构化提取", "社区共建", "Python 原生支持"]
+        }
+      ]
+    }
+  ]
+}

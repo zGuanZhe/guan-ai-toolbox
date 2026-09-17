@@ -1,0 +1,27 @@
+﻿{
+  "agy-transaction-guard": {
+    "enabled": true,
+    "PreToolUse": [
+      {
+        "matcher": "replace_file_content",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python .agents/skills/transaction-verifier/scripts/hook_runner.py PreToolUse"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "replace_file_content",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python .agents/skills/transaction-verifier/scripts/hook_runner.py PostToolUse"
+          }
+        ]
+      }
+    ]
+  }
+}

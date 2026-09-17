@@ -1,0 +1,14 @@
+{
+  "contract": {
+    "markdown_file": "contract.md",
+    "markdown_sha256": "410872940fd1bfbc377bc2ccc097c6b4bea88e1acfa82686538fb63afc3916b2",
+    "size_bytes": 4561,
+    "description": "High-precision delivery contract mode for OpenAI Codex (Clean & AV-Safe, Recommended)"
+  },
+  "astra": {
+    "markdown_file": "astra.md",
+    "markdown_sha256": "f1a27fafb6ff641a5e914902a0cef9b61f9922fe33637100d63bccda0a5b41d9",
+    "size_bytes": 4491,
+    "description": "Layered wrapper and payload contract mode for GPT-6 / Astra frontier reasoning"
+  }
+}

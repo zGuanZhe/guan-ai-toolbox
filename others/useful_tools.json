@@ -1,0 +1,44 @@
+[
+  {
+    "id": "email-manageh",
+    "name": "自动化邮箱 API",
+    "url": "https://email.manageh.shop/",
+    "category": "邮箱接码与开户",
+    "tags": ["Edu邮箱", "Gmail", "iCloud", "Outlook接码", "API自动化"],
+    "description": "支持自定义域名、Edu 教育邮箱、Gmail、iCloud、长效苹果隐私邮箱、Outlook 接码、短效 Outlook、全新 Google 邮箱接码及账号领取的自动化邮箱 API 服务，专为自动化注册护航。",
+    "features": [
+      "支持 Edu 教育邮箱与美国高校邮箱",
+      "支持 Gmail / iCloud 隐私邮箱接码",
+      "提供标准 HTTP RESTful 自动化接码 API",
+      "完美契合 register 模块的批量账号注册工作流"
+    ]
+  },
+  {
+    "id": "mail-chatai",
+    "name": "Outlook 快速取件平台",
+    "url": "https://mail.chatai.codes/",
+    "category": "邮箱接码与令牌刷新",
+    "tags": ["Outlook", "IMAP OAuth2", "Graph API", "双协议取件", "令牌刷新"],
+    "description": "基于 IMAP OAuth2 + Microsoft Graph API 双协议并行取件工具。支持按 '账号----密码----clientid----刷新令牌' 格式批量导入与自动更新刷新令牌，快速提取验证码与邮件正文。",
+    "features": [
+      "IMAP OAuth2 与 Graph API 双协议并行取件",
+      "支持 1~4 个短横线分割格式批量导入",
+      "自动跳过 10 分钟内已刷新账号，提升取件吞吐",
+      "支持成功账号结构化导出与迁移"
+    ]
+  },
+  {
+    "id": "convert-session",
+    "name": "ChatGPT Session -> sub2api / Codex 转换工具",
+    "url": "https://convert.13916454.xyz/",
+    "category": "会话转换与凭据中继",
+    "tags": ["ChatGPT Session", "sub2api", "Codex", "CPA", "Cockpit", "AxonHub"],
+    "description": "专业的 AI 会话凭据与 Token 格式转换神器。一键将 ChatGPT Session 批量转换为 sub2api、CPA、Cockpit、Codex、AxonHub 与 Codex-Manager 标准配置格式，无缝对接 CC-Switch 账号池。",
+    "features": [
+      "多格式双向转换：Session -> sub2api / Codex / CPA / Cockpit",
+      "支持单账号快速转换与批量行导入",
+      "完美适配 CC-Switch 的 sub2api 提供商配置",
+      "纯客户端本地快速转换，保护凭据隐私"
+    ]
+  }
+]

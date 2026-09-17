@@ -1,0 +1,27 @@
+{
+  "mcpServers": {
+    "sqlite": {
+      "command": "python",
+      "args": [
+        "-m",
+        "mcp_server_sqlite",
+        "--db-path",
+        "C:/data/test.db"
+      ]
+    },
+    "fetch": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-fetch"
+      ]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "D:/Test/Sub2"
+      ]
+    }
+  }
+}

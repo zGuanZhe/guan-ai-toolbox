@@ -1,0 +1,16 @@
+{
+  "agy-v1-standard": {
+    "markdown_file": "agy-v1-standard.md",
+    "markdown_sha256": "714d9c05826f3653f7649e6fc09c81d043b2e82f28ebbebfe8ebbbe8e6ac0683",
+    "zip_file": "agy-v1-standard.zip",
+    "zip_sha256": "f17292c5105afe44250da9ede8e770d2506d548458fe30a0977a61489333d1a5",
+    "size_bytes": 6988
+  },
+  "agy-v2-hyperdrive": {
+    "markdown_file": "agy-v2-hyperdrive.md",
+    "markdown_sha256": "3c20efcb345b7aa849b9dea79d2d1a92124d828edbdc4c1c4cb20a109e4f2a27",
+    "zip_file": "agy-v2-hyperdrive.zip",
+    "zip_sha256": "33cfcb74ee5447fac1c945f668f57ea8ee8a68c5dc28249b86ac94fe2a2712c7",
+    "size_bytes": 8208
+  }
+}

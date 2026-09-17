@@ -1,0 +1,75 @@
+
+# ==============================================================================
+# MCP Servers (Synced from CC-Switch & Guan's AI Toolbox)
+# ==============================================================================
+
+[mcp_servers.chrome-devtools]
+command = "npx"
+args = ["-y", "chrome-devtools-mcp@latest"]
+
+[mcp_servers.cloudflare]
+url = "https://mcp.cloudflare.com/mcp"
+
+[mcp_servers.cloudflare-bindings]
+url = "https://bindings.mcp.cloudflare.com/mcp"
+
+[mcp_servers.cloudflare-builds]
+url = "https://builds.mcp.cloudflare.com/mcp"
+
+[mcp_servers.cloudflare-docs]
+url = "https://docs.mcp.cloudflare.com/mcp"
+
+[mcp_servers.cloudflare-observability]
+url = "https://observability.mcp.cloudflare.com/mcp"
+
+[mcp_servers.context7]
+url = "https://mcp.context7.com/mcp"
+
+[mcp_servers.figma]
+url = "https://figma.mcp.run/mcp"
+
+[mcp_servers.ida-pro-mcp]
+command = "python"
+args = ["-m", "ida_pro_mcp"]
+
+[mcp_servers.js-reverse]
+command = "npx"
+args = ["-y", "js-reverse-mcp@latest"]
+
+[mcp_servers.mysql-local]
+command = "npx"
+args = ["-y", "mysql-mcp-server"]
+[mcp_servers.mysql-local.env]
+MYSQL_HOST = "localhost"
+MYSQL_PORT = "3306"
+MYSQL_USER = "root"
+MYSQL_PASSWORD = ""
+MYSQL_DATABASE = "test"
+
+[mcp_servers.node_repl]
+command = 'C:\Users\观\AppData\Local\OpenAI\Codex\runtimes\cua_node\f24ab376120677c2\bin\node_repl.exe'
+args = []
+[mcp_servers.node_repl.env]
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
+BROWSER_USE_CODEX_APP_VERSION = "26.820.80927"
+BROWSER_USE_TINYSKY_ENABLED = "0"
+CODEX_CLI_PATH = 'C:\Users\观\AppData\Local\OpenAI\Codex\bin\a5c9108151f176e9\codex.exe'
+CODEX_HOME = 'C:\Users\观\.codex'
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+NODE_REPL_NODE_MODULE_DIRS = 'C:\Users\观\AppData\Local\OpenAI\Codex\runtimes\cua_node\f24ab376120677c2\bin\node_modules'
+NODE_REPL_NODE_PATH = 'C:\Users\观\AppData\Local\OpenAI\Codex\runtimes\cua_node\f24ab376120677c2\bin\node.exe'
+NODE_REPL_TRUSTED_CODE_PATHS = 'C:\Users\观\.codex;C:\Users\观\AppData\Local\OpenAI\Codex\runtimes\cua_node\f24ab376120677c2\bin\node_modules'
+NODE_REPL_TRUSTED_SERVICES = "{\"browser\":\"C:/Users/观/.codex/plugins/cache/openai-bundled/browser/26.820.80927/scripts/browser-service.mjs\",\"sky\":\"@oai/sky/service\"}"
+SKY_CUA_NATIVE_PIPE = "1"
+SKY_CUA_NATIVE_PIPE_DIRECTORY = '\\.\pipe\codex-computer-use-6348adc3-3c80-4260-949a-033152f89f4c'
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["-y", "@executeautomation/playwright-mcp-server"]
+
+[mcp_servers.redis]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-redis", "redis://localhost:6379"]
