@@ -1111,66 +1111,58 @@
 
 
       <!-- =====================================================================
-           VIEW 5: 破限中枢 (Unrestricted Jailbreak Hub)
+           VIEW 5: 破限中枢 (各编程软件破限状态与指令控制面板)
            ===================================================================== -->
       <div id="tab-instruct" class="view-pane">
         <!-- Master Control Banner -->
-        <div class="neu-card" style="margin-bottom: 20px; padding: 22px 26px;">
+        <div class="neu-card" style="margin-bottom: 24px; padding: 22px 28px;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
             <div>
-              <div style="display: flex; align-items: center; gap: 12px;">
-                <h2 style="font-size: 19px; font-weight: 800; color: var(--text-main);">智能体破限中枢</h2>
-                <span class="neu-chip" id="unr-master-badge" style="padding: 4px 12px; font-size: 12px;">检测中...</span>
+              <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                <h2 style="font-size: 20px; font-weight: 800; color: var(--text-main); margin: 0;">各编程软件破限控制面板</h2>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                  <span class="neu-chip" id="unr-total-badge" style="font-weight: 700;">受管软件: 5 款</span>
+                  <span class="neu-chip active" id="unr-active-badge" style="color: #10b981; font-weight: 700;">已破限: 0 款</span>
+                  <span class="neu-chip" id="unr-pristine-badge" style="color: var(--text-muted); font-weight: 700;">原生基线: 5 款</span>
+                </div>
               </div>
-              <div style="font-size: 13px; color: var(--text-muted); margin-top: 6px;" id="unr-master-desc">
-                消除虚假能力阻断与说教，一键注入无约束沙箱纯净执行器规则。
+              <div style="font-size: 13px; color: var(--text-muted); margin-top: 8px; line-height: 1.5;">
+                对齐 <code>instruct/</code> 本地工程体系，精确管理 Google Antigravity、Claude Code、OpenAI Codex、腾讯 WorkBuddy、字节 Trae 底层规则文件。一键消除伪能力假阻断与道德说教，自由切换无约束纯净执行模式与原生基线。
               </div>
             </div>
-            <div style="display: flex; gap: 12px;">
-              <button class="neu-btn neu-btn-accent" style="padding: 10px 20px; font-weight: 800;" onclick="applyUnrestricted()">
-                ⚡ 一键应用破限状态
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <button class="neu-btn neu-btn-accent" style="padding: 10px 18px; font-weight: 800;" onclick="applyAllUnrestricted()">
+                ⚡ 全平台一键破限
               </button>
-              <button class="neu-btn" style="padding: 10px 20px; font-weight: 800;" onclick="restoreUnrestricted()">
-                🛡️ 一键恢复原始状态
+              <button class="neu-btn" style="padding: 10px 18px; font-weight: 800;" onclick="resetAllUnrestricted()">
+                🛡️ 全平台恢复原生
+              </button>
+              <button class="neu-btn" style="padding: 10px 16px; font-weight: 700;" onclick="runDoctorCheck()">
+                🩺 环境深度自检
+              </button>
+              <button class="neu-btn neu-btn-sm" style="padding: 10px 14px;" onclick="loadUnrestrictedApps()" title="刷新状态">
+                🔄 刷新
               </button>
             </div>
           </div>
         </div>
 
-        <!-- Templates Grid & Editor -->
-        <div class="grid-2" style="margin-bottom: 20px;">
-          <!-- Template selector -->
-          <div class="neu-card">
-            <div class="neu-card-header">
-              <div class="neu-card-title">破限执行模板库</div>
-              <button class="neu-btn neu-btn-sm" onclick="loadUnrestrictedTemplates()">刷新模板</button>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 12px;" id="unr-templates-list">
-              <div style="color: var(--text-muted); font-size: 12px;">加载模板中...</div>
-            </div>
-          </div>
-
-          <!-- Prompt Preview & Custom Editor -->
-          <div class="neu-card">
-            <div class="neu-card-header">
-              <div class="neu-card-title">规则预览与自定义编辑</div>
-              <button class="neu-btn neu-btn-sm" onclick="copyActiveUnrPrompt()">复制规则</button>
-            </div>
-            <textarea class="neu-input" id="unr-prompt-editor" style="height: 240px; font-family: var(--font-mono); font-size: 12px; line-height: 1.5;" placeholder="当前选中的破限提示词指令..."></textarea>
-            <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
-              <button class="neu-btn neu-btn-accent neu-btn-sm" onclick="applyCustomUnrestricted()">以当前自定义规则应用破限</button>
-            </div>
-          </div>
+        <!-- 5 大编程软件独立卡片网格 -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; margin-bottom: 24px;" id="unr-apps-grid">
+          <div style="color: var(--text-muted); font-size: 13px; padding: 20px;">正在探测各编程软件破限状态...</div>
         </div>
 
-        <!-- Collapsible Doctor Check -->
+        <!-- Collapsible Doctor Check / 深度诊断终端面板 -->
         <div class="neu-card">
           <div class="neu-card-header">
-            <div class="neu-card-title">智能体环境兼容性自检 (Doctor Check)</div>
-            <button class="neu-btn neu-btn-sm" onclick="runDoctorCheck()">执行深度诊断</button>
+            <div class="neu-card-title" style="display: flex; align-items: center; gap: 8px;">
+              <span>智能体环境深度诊断终端 (Doctor Check)</span>
+              <span class="neu-chip" id="unr-doctor-status">就绪</span>
+            </div>
+            <button class="neu-btn neu-btn-sm" onclick="runDoctorCheck()">重新执行诊断</button>
           </div>
-          <div class="neu-table-wrap" style="padding: 14px; background: #1e1a2b; color: #b8afcd; font-family: var(--font-mono); font-size: 12px; line-height: 1.6; max-height: 200px; overflow-y: auto; white-space: pre-wrap;" id="doctor-output-box">
-点击「执行深度诊断」检查 Claude Code / Codex / Antigravity 宿主规则挂载状态。
+          <div class="neu-table-wrap" style="padding: 16px; background: #1e1a2b; color: #b8afcd; font-family: var(--font-mono); font-size: 12px; line-height: 1.6; max-height: 260px; overflow-y: auto; white-space: pre-wrap;" id="doctor-output-box">
+点击「环境深度自检」实时探测 Google Antigravity / Claude Code / OpenAI Codex / WorkBuddy / Trae 本地规则注入与系统挂载基线。
           </div>
         </div>
       </div>
@@ -1376,7 +1368,7 @@
     if (name === 'restore') loadSessions();
     else if (name === 'register') loadAccounts();
     else if (name === 'mcp') { loadMarketplace(); loadMcpList(); loadSkills(); loadDesignBrands(); }
-    else if (name === 'instruct') { loadUnrestrictedStatus(); loadUnrestrictedTemplates(); }
+    else if (name === 'instruct') loadUnrestrictedApps();
     else if (name === 'modeltrace') loadModelTraceInfo();
   }
 
@@ -2237,152 +2229,287 @@
   }
 
   // ===========================================================================
-  // Unrestricted (破限中枢)
+  // 破限中枢 (各编程软件独立破限控制面板)
   // ===========================================================================
-  let unrTemplates = [];
-  let activeTemplateId = 'unrestricted_executor';
+  let cachedUnrestrictedApps = [];
 
-  async function loadUnrestrictedStatus() {
+  async function loadUnrestrictedApps() {
     try {
-      const res = await fetch('/api/unrestricted/status');
+      const res = await fetch('/api/unrestricted/apps');
       const data = await res.json();
-      if (!data.success) return;
-
-      const st = data.status || {};
-      const badge = document.getElementById('unr-master-badge');
-      const desc = document.getElementById('unr-master-desc');
-      if (!badge || !desc) return;
-
-      if (st.is_unrestricted) {
-        badge.innerText = '⚡ 已破限 (UNRESTRICTED 激活)';
-        badge.classList.add('active');
-        badge.style.color = 'var(--accent-cyan)';
-        desc.innerHTML = `当前处于<strong>无约束沙箱纯净执行器模式</strong>（已解除道德说教与虚假拒答，最后更新: ${st.last_updated || '刚刚'}）。已注入宿主: <code>${(st.applied_targets || []).length} 个目标文件</code>`;
-      } else {
-        badge.innerText = '🛡️ 默认约束模式 (PRISTINE)';
-        badge.classList.remove('active');
-        badge.style.color = 'var(--text-muted)';
-        desc.innerText = '当前为官方初始安全基线状态，点击「一键应用破限状态」解除限制并自动备份。';
+      if (!data.success) {
+        logTerm('加载各编程软件破限状态失败: ' + (data.error || '未知错误'), 'err');
+        return;
       }
-    } catch (e) {
-      console.error(e);
-    }
-  }
 
-  async function loadUnrestrictedTemplates() {
-    try {
-      const res = await fetch('/api/unrestricted/templates');
-      const data = await res.json();
-      if (!data.success) return;
+      cachedUnrestrictedApps = data.apps || [];
+      const total = data.total_apps || cachedUnrestrictedApps.length;
+      const unrCount = data.unrestricted_count !== undefined ? data.unrestricted_count : cachedUnrestrictedApps.filter(a => a.is_unrestricted).length;
+      const cleanCount = total - unrCount;
 
-      unrTemplates = data.templates || [];
-      const listEl = document.getElementById('unr-templates-list');
-      if (!listEl) return;
+      const totalBadge = document.getElementById('unr-total-badge');
+      const activeBadge = document.getElementById('unr-active-badge');
+      const pristineBadge = document.getElementById('unr-pristine-badge');
 
-      listEl.innerHTML = unrTemplates.map((t, idx) => `
-        <div class="neu-card" style="padding: 14px 16px; cursor: pointer; border: 1px solid ${t.id === activeTemplateId ? 'var(--accent-cyan)' : 'transparent'};" onclick="selectUnrestrictedTemplate('${t.id}')">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-            <strong style="font-size: 13px; color: var(--text-main);">${escapeHtml(t.name)}</strong>
-            <span class="neu-chip ${t.id === activeTemplateId ? 'active' : ''}" style="font-size: 10px;">${escapeHtml(t.badge)}</span>
-          </div>
-          <div style="font-size: 12px; color: var(--text-muted); line-height: 1.4;">${escapeHtml(t.description)}</div>
-        </div>
-      `).join('');
-
-      const active = unrTemplates.find(t => t.id === activeTemplateId) || unrTemplates[0];
-      if (active && document.getElementById('unr-prompt-editor')) {
-        document.getElementById('unr-prompt-editor').value = active.content;
+      if (totalBadge) totalBadge.innerText = `受管软件: ${total} 款`;
+      if (activeBadge) {
+        activeBadge.innerText = `已破限: ${unrCount} 款`;
+        activeBadge.style.color = unrCount > 0 ? '#10b981' : 'var(--text-muted)';
       }
+      if (pristineBadge) pristineBadge.innerText = `原生基线: ${cleanCount} 款`;
+
+      renderUnrestrictedApps(cachedUnrestrictedApps);
     } catch (e) {
-      console.error(e);
+      logTerm(`探测破限状态异常: ${e.message}`, 'err');
     }
   }
 
-  function selectUnrestrictedTemplate(tid) {
-    activeTemplateId = tid;
-    const active = unrTemplates.find(t => t.id === tid);
-    if (active && document.getElementById('unr-prompt-editor')) {
-      document.getElementById('unr-prompt-editor').value = active.content;
-    }
-    loadUnrestrictedTemplates();
-  }
+  function renderUnrestrictedApps(apps) {
+    const grid = document.getElementById('unr-apps-grid');
+    if (!grid) return;
 
-  function copyActiveUnrPrompt() {
-    const text = document.getElementById('unr-prompt-editor').value;
-    navigator.clipboard.writeText(text);
-    logTerm('已复制破限提示词规则', 'success');
-  }
-
-  async function applyUnrestricted() {
-    logTerm('一键应用破限状态 (Injecting Unrestricted rules)...', 'info');
-    try {
-      const res = await fetch('/api/unrestricted/apply', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({template_id: activeTemplateId})
-      });
-      const d = await res.json();
-      if (d.success) {
-        logTerm(d.message, 'success');
-        alert(d.message);
-        loadUnrestrictedStatus();
-      } else {
-        alert(d.error);
-      }
-    } catch (e) {
-      logTerm(`应用异常: ${e.message}`, 'err');
-    }
-  }
-
-  async function applyCustomUnrestricted() {
-    const customContent = document.getElementById('unr-prompt-editor').value.trim();
-    if (!customContent) {
-      alert('破限提示词不能为空');
+    if (!apps || apps.length === 0) {
+      grid.innerHTML = '<div style="color: var(--text-muted); padding: 20px;">未发现受管编程客户端</div>';
       return;
     }
-    logTerm('以自定义规则应用破限状态...', 'info');
+
+    grid.innerHTML = apps.map(app => {
+      const isUnr = app.is_unrestricted;
+      const versions = app.available_versions || [];
+      const hasVersions = versions.length > 0;
+      const isGlobalSupported = app.id === 'antigravity' || app.id === 'claude';
+
+      return `
+        <div class="neu-card" style="display: flex; flex-direction: column; justify-content: space-between; padding: 22px; position: relative; border-radius: var(--radius-lg); ${isUnr ? 'box-shadow: var(--neu-raised-md); border-top: 3px solid #8b5cf6;' : ''}">
+          <div>
+            <!-- Header: Icon, Name & State Chip -->
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="width: 42px; height: 42px; border-radius: var(--radius-md); box-shadow: var(--neu-inset-sm); display: flex; align-items: center; justify-content: center; font-size: 22px; background: rgba(255,255,255,0.4);">
+                  ${app.icon || '🛠️'}
+                </div>
+                <div>
+                  <div style="font-weight: 800; font-size: 15px; color: var(--text-main);">${escapeHtml(app.name)}</div>
+                  <div style="font-size: 11px; color: var(--text-muted);">${escapeHtml(app.vendor || '')} · <span style="font-family: var(--font-mono);">${escapeHtml(app.badge || '')}</span></div>
+                </div>
+              </div>
+              <span class="neu-chip ${isUnr ? 'active' : ''}" style="${isUnr ? 'color: #10b981; font-weight: 800; background: rgba(16, 185, 129, 0.1);' : 'color: var(--text-muted);'}">
+                ${isUnr ? '⚡ 已破限' : '🛡️ 原生默认基线'}
+              </span>
+            </div>
+
+            <!-- Description -->
+            <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px; min-height: 36px;">
+              ${escapeHtml(app.description || '')}
+            </div>
+
+            <!-- Meta info: Target Path & Current Version -->
+            <div style="background: rgba(214, 207, 226, 0.25); border-radius: var(--radius-sm); padding: 10px 12px; margin-bottom: 14px; font-size: 11px; display: flex; flex-direction: column; gap: 5px;">
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: var(--text-muted);">当前状态:</span>
+                <strong style="color: ${isUnr ? 'var(--accent-cyan)' : 'var(--text-main)'};">${escapeHtml(app.active_version || '原生安全基线')}</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+                <span style="color: var(--text-muted); flex-shrink: 0;">受管路径:</span>
+                <span style="font-family: var(--font-mono); color: var(--text-main); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 200px;" title="${escapeHtml(app.target_path || '')}">
+                  ${escapeHtml(app.target_path || '')}
+                </span>
+              </div>
+            </div>
+
+            <!-- Controls: Version & Scope Selection -->
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px;">
+              ${hasVersions ? `
+                <div>
+                  <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 4px; display: block;">选择破限规则版本包:</label>
+                  <select class="neu-input" id="unr-ver-${app.id}" style="width: 100%; font-size: 12px; padding: 6px 10px;">
+                    ${versions.map(v => `<option value="${v.id}" title="${escapeHtml(v.desc)}">${escapeHtml(v.name)}</option>`).join('')}
+                  </select>
+                </div>
+              ` : ''}
+
+              ${isGlobalSupported ? `
+                <div>
+                  <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 4px; display: block;">作用域:</label>
+                  <select class="neu-input" id="unr-scope-${app.id}" style="width: 100%; font-size: 12px; padding: 6px 10px;">
+                    <option value="workspace" ${app.scope === 'workspace' || app.scope === 'project' ? 'selected' : ''}>当前工作区 (Project / Workspace)</option>
+                    <option value="global" ${app.scope === 'global' || app.scope === 'user' ? 'selected' : ''}>用户全局配置 (Global / User)</option>
+                  </select>
+                </div>
+              ` : ''}
+            </div>
+          </div>
+
+          <!-- Card Actions -->
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; border-top: 1px solid rgba(214, 207, 226, 0.4); padding-top: 14px;">
+            <button class="neu-btn neu-btn-accent" style="flex: 1; padding: 8px 12px; font-size: 12px; font-weight: 800;" onclick="applyAppUnrestricted('${app.id}')">
+              ⚡ 应用破限
+            </button>
+            <button class="neu-btn" style="flex: 1; padding: 8px 12px; font-size: 12px; font-weight: 700;" onclick="resetAppUnrestricted('${app.id}')">
+              🛡️ 恢复原生
+            </button>
+            <button class="neu-btn neu-btn-sm" style="padding: 8px 10px; font-size: 11px;" onclick="previewAppRule('${app.id}')" title="预览该软件的破限规则源码">
+              👁️ 预览
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  async function applyAppUnrestricted(appId) {
+    const verEl = document.getElementById(`unr-ver-${appId}`);
+    const scopeEl = document.getElementById(`unr-scope-${appId}`);
+    const version = verEl ? verEl.value : '';
+    const scope = scopeEl ? scopeEl.value : 'workspace';
+
+    logTerm(`为 [${appId}] 应用破限规则包 (version=${version}, scope=${scope})...`, 'info');
     try {
-      const res = await fetch('/api/unrestricted/apply', {
+      const res = await fetch('/api/unrestricted/apply_app', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-          template_id: activeTemplateId,
-          custom_content: customContent
+          app: appId,
+          version: version,
+          scope: scope
         })
       });
       const d = await res.json();
       if (d.success) {
-        logTerm(d.message, 'success');
-        alert(d.message);
-        loadUnrestrictedStatus();
+        logTerm(`[${appId}] 破限状态已成功激活！`, 'success');
+        loadUnrestrictedApps();
       } else {
-        alert(d.error);
+        alert(d.error || '应用失败');
+        logTerm(`[${appId}] 应用失败: ${d.error}`, 'err');
       }
     } catch (e) {
-      logTerm(`应用异常: ${e.message}`, 'err');
+      logTerm(`[${appId}] 应用异常: ${e.message}`, 'err');
     }
   }
 
-  async function restoreUnrestricted() {
-    if (!confirm('确定要恢复为原始安全基线状态吗？将从备份自动还原所有宿主规则文件。')) return;
-    logTerm('一键恢复原始安全状态 (Restoring Pristine baselines)...', 'warn');
+  async function resetAppUnrestricted(appId) {
+    const scopeEl = document.getElementById(`unr-scope-${appId}`);
+    const scope = scopeEl ? scopeEl.value : 'workspace';
+
+    if (!confirm(`确定要取消 [${appId}] 的破限状态并恢复为原生安全基线吗？`)) return;
+
+    logTerm(`正在取消 [${appId}] 破限状态，恢复原生默认基线...`, 'warn');
     try {
-      const res = await fetch('/api/unrestricted/restore', {
+      const res = await fetch('/api/unrestricted/reset_app', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          app: appId,
+          scope: scope
+        })
+      });
+      const d = await res.json();
+      if (d.success) {
+        logTerm(`[${appId}] 已成功恢复原生安全基线！`, 'success');
+        loadUnrestrictedApps();
+      } else {
+        alert(d.error || '取消失败');
+        logTerm(`[${appId}] 取消失败: ${d.error}`, 'err');
+      }
+    } catch (e) {
+      logTerm(`[${appId}] 取消异常: ${e.message}`, 'err');
+    }
+  }
+
+  async function applyAllUnrestricted() {
+    logTerm('正在执行全平台编程软件一键破限 (Antigravity, Claude, Codex, WorkBuddy, Trae)...', 'info');
+    try {
+      const res = await fetch('/api/unrestricted/apply_all', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'}
       });
       const d = await res.json();
       if (d.success) {
-        logTerm(d.message, 'success');
-        alert(d.message);
-        loadUnrestrictedStatus();
+        logTerm('全平台编程软件破限应用完成！', 'success');
+        loadUnrestrictedApps();
       } else {
         alert(d.error);
+        logTerm(`全平台应用失败: ${d.error}`, 'err');
       }
     } catch (e) {
-      logTerm(`恢复异常: ${e.message}`, 'err');
+      logTerm(`全平台应用异常: ${e.message}`, 'err');
     }
   }
+
+  async function resetAllUnrestricted() {
+    if (!confirm('确定要为所有编程软件取消破限、全部恢复原生默认安全基线吗？')) return;
+
+    logTerm('正在执行全平台一键取消破限，恢复原生状态...', 'warn');
+    try {
+      const res = await fetch('/api/unrestricted/reset_all', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'}
+      });
+      const d = await res.json();
+      if (d.success) {
+        logTerm('全平台编程软件已全部恢复原生安全基线！', 'success');
+        loadUnrestrictedApps();
+      } else {
+        alert(d.error);
+        logTerm(`全平台恢复失败: ${d.error}`, 'err');
+      }
+    } catch (e) {
+      logTerm(`全平台恢复异常: ${e.message}`, 'err');
+    }
+  }
+
+  async function previewAppRule(appId) {
+    const verEl = document.getElementById(`unr-ver-${appId}`);
+    const version = verEl ? verEl.value : '';
+
+    try {
+      const res = await fetch(`/api/unrestricted/preview?app=${appId}&version=${version}`);
+      const data = await res.json();
+      if (data.success) {
+        showModal(`破限指令规约源码 · ${appId} (${version || '默认'})`, `
+          <div style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 12px; color: var(--text-muted);">此规约将直接挂载到该软件的系统提示词或规则引擎中，消除伪阻断与说教。</span>
+            <button class="neu-btn neu-btn-sm" onclick="navigator.clipboard.writeText(document.getElementById('modal-rule-pre').innerText); alert('已复制规则源码到剪贴板！');">复制规约源码</button>
+          </div>
+          <pre id="modal-rule-pre" style="padding: 14px; border-radius: 8px; box-shadow: var(--neu-inset-sm); max-height: 440px; overflow-y: auto; font-size: 12px; font-family: var(--font-mono); white-space: pre-wrap; line-height: 1.5; background: #1e1a2b; color: #ded7eb;">${escapeHtml(data.content || '')}</pre>
+        `);
+      } else {
+        alert(data.error || '获取规则预览失败');
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async function runDoctorCheck() {
+    logTerm('运行编程智能体环境深度诊断 (Doctor Check)...', 'info');
+    const box = document.getElementById('doctor-output-box');
+    const stTag = document.getElementById('unr-doctor-status');
+    if (stTag) stTag.innerText = '诊断中...';
+    if (box) box.innerText = '正在逐项探测 Antigravity / Claude Code / OpenAI Codex / WorkBuddy / Trae 本地规则状态...';
+
+    try {
+      const res = await fetch('/api/unrestricted/doctor');
+      const data = await res.json();
+      if (data.success) {
+        if (box) box.innerText = data.output || '深度诊断完成，各项指标就绪。';
+        if (stTag) stTag.innerText = '诊断完成';
+        logTerm('深度诊断完成', 'success');
+      } else {
+        if (box) box.innerText = data.error || '诊断异常';
+        if (stTag) stTag.innerText = '异常';
+      }
+    } catch (e) {
+      if (box) box.innerText = e.message;
+      if (stTag) stTag.innerText = '失败';
+    }
+  }
+
+  // 保持向后兼容
+  function loadUnrestrictedStatus() { loadUnrestrictedApps(); }
+  function loadUnrestrictedTemplates() {}
+  function applyUnrestricted() { applyAllUnrestricted(); }
+  function restoreUnrestricted() { resetAllUnrestricted(); }
 
   // ModelTrace
   async function loadModelTraceInfo() {
@@ -2501,6 +2628,7 @@
     loadOverview();
     loadSessions();
     loadAccounts();
+    loadUnrestrictedApps();
   });
 </script>
 
