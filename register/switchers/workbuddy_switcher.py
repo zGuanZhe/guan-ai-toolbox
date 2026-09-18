@@ -112,14 +112,16 @@ class WorkBuddyAccountSwitcher:
 
         # 3. 标记激活状态
         self.pool.set_active_account(target.id)
-        print(f"[✓] 登录凭证已置换为: {target.email}！")
+        print(f"[OK] 登录凭证已置换为: {target.email}！")
 
         # 4. 可选重启客户端以使界面重载
         if restart_app:
             self._restart_workbuddy()
         else:
-            print("💡 提示: 请在 WorkBuddy 窗口按 Ctrl+R 刷新，或重启客户端即可加载该账号！")
+            print("提示: 请在 WorkBuddy 窗口按 Ctrl+R 刷新，或重启客户端即可加载该账号！")
         return True
+
+    switch_account = switch_to
 
     def _restart_workbuddy(self):
         try:
@@ -133,7 +135,8 @@ class WorkBuddyAccountSwitcher:
             for exe in candidate_exes:
                 if os.path.exists(exe):
                     subprocess.Popen([exe], shell=False)
-                    print("[✓] WorkBuddy 客户端已启动，已进入新账号登录态！")
+                    print("[OK] WorkBuddy 客户端已启动，已进入新账号登录态！")
                     return
         except Exception as e:
             print(f"[!] 重启客户端提示: {e}")
+

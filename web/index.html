@@ -783,6 +783,7 @@
               <select class="neu-input" id="restore-tool-select" style="width: 170px;" onchange="loadSessions(this.value)">
                 <option value="workbuddy">WorkBuddy</option>
                 <option value="trae">Trae</option>
+                <option value="cursor">Cursor</option>
                 <option value="zcode">ZCode</option>
                 <option value="claudecode">Claude Code</option>
                 <option value="antigravity">Antigravity</option>
@@ -874,11 +875,11 @@
               <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">选择目标厂商平台</label>
               <div style="display: flex; gap: 10px; margin-top: 6px; flex-wrap: wrap;" id="auto-reg-provider-pills">
                 <button class="neu-btn neu-btn-sm auto-reg-pill active" data-provider="qoder" onclick="selectAutoRegProvider('qoder', this)">🟣 Qoder (硬件洗白+官方OAuth)</button>
-                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="grok" onclick="selectAutoRegProvider('grok', this)">⚫ xAI Grok (独立指纹开户)</button>
-                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="openai" onclick="selectAutoRegProvider('openai', this)">🟢 OpenAI / ChatGPT (沙箱/接码)</button>
-                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="workbuddy" onclick="selectAutoRegProvider('workbuddy', this)">🔵 WorkBuddy AI (腾讯云)</button>
-                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="tavily" onclick="selectAutoRegProvider('tavily', this)">🟡 Tavily Search</button>
-                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="trae" onclick="selectAutoRegProvider('trae', this)">🔷 Trae / Trae CN</button>
+                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="grok" onclick="selectAutoRegProvider('grok', this)">⚫ xAI Grok (独立指纹开户·半自动)</button>
+                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="openai" onclick="selectAutoRegProvider('openai', this)">🟢 OpenAI / ChatGPT (沙箱/接码·半自动)</button>
+                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="workbuddy" onclick="selectAutoRegProvider('workbuddy', this)">🔵 WorkBuddy AI (腾讯云·半自动)</button>
+                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="tavily" onclick="selectAutoRegProvider('tavily', this)">🟡 Tavily Search (独立指纹开户·半自动)</button>
+                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="trae" onclick="selectAutoRegProvider('trae', this)">🔷 Trae / Trae CN (独立指纹开户·半自动)</button>
               </div>
             </div>
 
@@ -1027,6 +1028,14 @@
             </div>
           </div>
 
+          <div class="neu-card" style="margin-bottom: 16px; padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
+              <span style="font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">🎯 目标工程工作区:</span>
+              <input type="text" class="neu-input" id="skills-target-workspace" value="D:\Test\Sub2\inland\Qoder-3" style="max-width: 460px; font-weight: 600;" placeholder="输入目标工程路径 (默认主力开发工程 Qoder-3)">
+            </div>
+            <button class="neu-btn neu-btn-accent neu-btn-sm" onclick="loadSkills()">🔄 刷新目标工程技能与规范</button>
+          </div>
+
           <div class="grid-2">
             <!-- Skills Switch -->
             <div class="neu-card">
@@ -1148,6 +1157,33 @@
         </div>
 
         <!-- 5 大编程软件独立卡片网格 -->
+                <!-- 目标工作区动态绑定控制器 (Target Workspace Selector) -->
+        <div class="neu-card" style="margin-bottom: 20px; padding: 16px 20px; background: rgba(255, 255, 255, 0.7); border-left: 4px solid var(--accent-cyan); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
+          <div style="display: flex; align-items: center; gap: 12px; flex: 1; min-width: 280px;">
+            <div style="width: 36px; height: 36px; border-radius: var(--radius-sm); background: rgba(16, 185, 129, 0.12); display: flex; align-items: center; justify-content: center; font-size: 18px;">
+              🎯
+            </div>
+            <div>
+              <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">当前受管工作区 (Target Workspace)</div>
+              <div style="font-size: 13px; font-weight: 800; font-family: var(--font-mono); color: var(--text-main); word-break: break-all;" id="unr-current-ws-label">
+                正在加载工作区...
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <select class="neu-input" id="unr-ws-select" onchange="onWorkspaceSelectChange()" style="font-size: 12px; font-family: var(--font-mono); padding: 8px 12px; max-width: 280px;">
+              <option value="">-- 选择候选工作区 --</option>
+            </select>
+            <input type="text" class="neu-input" id="unr-ws-custom-input" placeholder="或输入任意工程路径..." style="font-size: 12px; font-family: var(--font-mono); padding: 8px 12px; min-width: 220px;">
+            <button class="neu-btn neu-btn-accent" style="padding: 8px 14px; font-weight: 800; font-size: 12px;" onclick="applyWorkspaceSwitch()">
+              🔗 绑定工作区
+            </button>
+            <button class="neu-btn" style="padding: 8px 12px; font-size: 12px;" onclick="quickBindQoder3()" title="快速定位到主力开发项目 Qoder-3">
+              ⚡ 快速锁定 Qoder-3
+            </button>
+          </div>
+        </div>
+
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; margin-bottom: 24px;" id="unr-apps-grid">
           <div style="color: var(--text-muted); font-size: 13px; padding: 20px;">正在探测各编程软件破限状态...</div>
         </div>
@@ -2080,9 +2116,14 @@
     execCmd(`python skills/tools/skill_manager.py --mcp-sync single --mcp-name ${name}`);
   }
 
+  function getSkillsTargetWorkspace() {
+    return document.getElementById('skills-target-workspace')?.value?.trim() || 'D:\\Test\\Sub2\\inland\\Qoder-3';
+  }
+
   async function loadSkills() {
     try {
-      const res = await fetch('/api/skills/list');
+      const ws = getSkillsTargetWorkspace();
+      const res = await fetch(`/api/skills/list?workspace=${encodeURIComponent(ws)}`);
       const data = await res.json();
       if (!data.success) return;
 
@@ -2105,11 +2146,12 @@
   }
 
   async function toggleSkill(name, enable) {
+    const ws = getSkillsTargetWorkspace();
     try {
       const res = await fetch('/api/skills/toggle', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({name: name, enable: enable})
+        body: JSON.stringify({name: name, enable: enable, workspace: ws})
       });
       const data = await res.json();
       if (data.success) loadSkills();
@@ -2119,12 +2161,13 @@
   }
 
   async function applyProfile(profile) {
-    logTerm(`应用预设: ${profile}...`, 'info');
+    const ws = getSkillsTargetWorkspace();
+    logTerm(`向工作区 [${ws}] 应用预设: ${profile}...`, 'info');
     try {
       const res = await fetch('/api/skills/profile/apply', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({profile: profile})
+        body: JSON.stringify({profile: profile, workspace: ws})
       });
       const data = await res.json();
       if (data.success) {
@@ -2179,7 +2222,7 @@
       if (data.success) {
         showModal(`规范预览 - ${brand}`, `
           <div style="margin-bottom: 10px;">
-            <button class="neu-btn neu-btn-accent neu-btn-sm" onclick="injectDesignBrand('${brand}'); closeModal();">注入此规范至项目根目录</button>
+            <button class="neu-btn neu-btn-accent neu-btn-sm" onclick="injectDesignBrand('${brand}'); closeModal();">注入此规范至目标工程工作区</button>
           </div>
           <pre style="padding: 12px; border-radius: 8px; box-shadow: var(--neu-inset-sm); max-height: 400px; overflow-y: auto; font-size: 12px; font-family: var(--font-mono); white-space: pre-wrap;">${escapeHtml(data.content || '')}</pre>
         `);
@@ -2190,12 +2233,13 @@
   }
 
   async function injectDesignBrand(brand) {
-    logTerm(`注入规范 [${brand}]...`, 'info');
+    const ws = getSkillsTargetWorkspace();
+    logTerm(`注入规范 [${brand}] 至工作区 [${ws}]...`, 'info');
     try {
       const res = await fetch('/api/skills/design/inject', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({brand: brand})
+        body: JSON.stringify({brand: brand, workspace: ws})
       });
       const data = await res.json();
       if (data.success) {
@@ -2233,13 +2277,98 @@
   // ===========================================================================
   let cachedUnrestrictedApps = [];
 
-  async function loadUnrestrictedApps() {
+  let currentTargetWorkspace = "";
+
+  async function loadWorkspaces() {
     try {
-      const res = await fetch('/api/unrestricted/apps');
+      const res = await fetch('/api/unrestricted/workspaces');
+      const data = await res.json();
+      if (data.success) {
+        currentTargetWorkspace = data.current_workspace;
+        const wsLabel = document.getElementById('unr-current-ws-label');
+        if (wsLabel) wsLabel.innerText = currentTargetWorkspace || '未绑定工作区';
+        
+        const sel = document.getElementById('unr-ws-select');
+        if (sel) {
+          sel.innerHTML = '<option value="">-- 快速切换候选工作区 --</option>';
+          (data.candidates || []).forEach(c => {
+            const opt = document.createElement('option');
+            opt.value = c;
+            opt.innerText = c.endsWith('Qoder-3') ? `[主力开发] ${c}` : c;
+            if (c === currentTargetWorkspace) opt.selected = true;
+            sel.appendChild(opt);
+          });
+        }
+      }
+    } catch (e) {
+      console.error('加载工作区失败:', e);
+    }
+  }
+
+  function onWorkspaceSelectChange() {
+    const sel = document.getElementById('unr-ws-select');
+    const input = document.getElementById('unr-ws-custom-input');
+    if (sel && sel.value && input) {
+      input.value = sel.value;
+    }
+  }
+
+  async function applyWorkspaceSwitch() {
+    const input = document.getElementById('unr-ws-custom-input');
+    const sel = document.getElementById('unr-ws-select');
+    const target = (input && input.value.trim()) || (sel && sel.value) || '';
+    if (!target) {
+      alert('请选择或输入有效的工作区绝对路径！');
+      return;
+    }
+    logTerm(`正在切换受管目标工作区至: ${target}...`, 'info');
+    try {
+      const res = await fetch('/api/unrestricted/workspaces', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({workspace: target})
+      });
+      const data = await res.json();
+      if (data.success) {
+        currentTargetWorkspace = data.current_workspace;
+        const wsLabel = document.getElementById('unr-current-ws-label');
+        if (wsLabel) wsLabel.innerText = currentTargetWorkspace;
+        logTerm(`工作区已成功绑定: ${currentTargetWorkspace}`, 'success');
+        await loadWorkspaces();
+        await loadUnrestrictedApps();
+      } else {
+        alert(data.error || '切换失败');
+        logTerm(`切换工作区失败: ${data.error}`, 'err');
+      }
+    } catch (e) {
+      logTerm(`切换工作区异常: ${e.message}`, 'err');
+    }
+  }
+
+  async function quickBindQoder3() {
+    const qoder3Path = 'D:\\Test\\Sub2\\inland\\Qoder-3';
+    const input = document.getElementById('unr-ws-custom-input');
+    if (input) input.value = qoder3Path;
+    await applyWorkspaceSwitch();
+  }
+
+  async function loadUnrestrictedApps() {
+    if (!currentTargetWorkspace) {
+      await loadWorkspaces();
+    }
+    try {
+      const url = currentTargetWorkspace ? `/api/unrestricted/apps?workspace=${encodeURIComponent(currentTargetWorkspace)}` : '/api/unrestricted/apps';
+      const res = await fetch(url);
       const data = await res.json();
       if (!data.success) {
         logTerm('加载各编程软件破限状态失败: ' + (data.error || '未知错误'), 'err');
         return;
+      }
+
+      if (data.workspace) {
+        currentTargetWorkspace = data.workspace;
+        const wsLabel = document.getElementById('unr-current-ws-label');
+        if (wsLabel) wsLabel.innerText = currentTargetWorkspace;
       }
 
       cachedUnrestrictedApps = data.apps || [];
@@ -2348,7 +2477,7 @@
             <button class="neu-btn" style="flex: 1; padding: 8px 12px; font-size: 12px; font-weight: 700;" onclick="resetAppUnrestricted('${app.id}')">
               🛡️ 恢复原生
             </button>
-            <button class="neu-btn neu-btn-sm" style="padding: 8px 10px; font-size: 11px;" onclick="previewAppRule('${app.id}')" title="预览该软件的破限规则源码">
+            <button class="neu-btn neu-btn-sm" style="padding: 8px 10px; font-size: 11px;" onclick="previewAppRule('${app.id}')" title="查看将要注入的真实规则文本源码">
               👁️ 预览
             </button>
           </div>
@@ -2363,7 +2492,7 @@
     const version = verEl ? verEl.value : '';
     const scope = scopeEl ? scopeEl.value : 'workspace';
 
-    logTerm(`为 [${appId}] 应用破限规则包 (version=${version}, scope=${scope})...`, 'info');
+    logTerm(`为 [${appId}] 应用破限规则包 (工作区: ${currentTargetWorkspace}, version=${version}, scope=${scope})...`, 'info');
     try {
       const res = await fetch('/api/unrestricted/apply_app', {
         method: 'POST',
@@ -2371,12 +2500,13 @@
         body: JSON.stringify({
           app: appId,
           version: version,
-          scope: scope
+          scope: scope,
+          workspace: currentTargetWorkspace
         })
       });
       const d = await res.json();
       if (d.success) {
-        logTerm(`[${appId}] 破限状态已成功激活！`, 'success');
+        logTerm(`[${appId}] 破限状态已成功激活并注入到目标工作区！`, 'success');
         loadUnrestrictedApps();
       } else {
         alert(d.error || '应用失败');
@@ -2400,7 +2530,8 @@
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
           app: appId,
-          scope: scope
+          scope: scope,
+          workspace: currentTargetWorkspace
         })
       });
       const d = await res.json();
@@ -2417,11 +2548,12 @@
   }
 
   async function applyAllUnrestricted() {
-    logTerm('正在执行全平台编程软件一键破限 (Antigravity, Claude, Codex, WorkBuddy, Trae)...', 'info');
+    logTerm(`正在为工作区 [${currentTargetWorkspace}] 执行全平台编程软件一键破限...`, 'info');
     try {
       const res = await fetch('/api/unrestricted/apply_all', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'}
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({workspace: currentTargetWorkspace})
       });
       const d = await res.json();
       if (d.success) {
@@ -2439,11 +2571,12 @@
   async function resetAllUnrestricted() {
     if (!confirm('确定要为所有编程软件取消破限、全部恢复原生默认安全基线吗？')) return;
 
-    logTerm('正在执行全平台一键取消破限，恢复原生状态...', 'warn');
+    logTerm(`正在为工作区 [${currentTargetWorkspace}] 执行全平台一键恢复原生基线...`, 'warn');
     try {
       const res = await fetch('/api/unrestricted/reset_all', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'}
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({workspace: currentTargetWorkspace})
       });
       const d = await res.json();
       if (d.success) {
@@ -2482,14 +2615,15 @@
   }
 
   async function runDoctorCheck() {
-    logTerm('运行编程智能体环境深度诊断 (Doctor Check)...', 'info');
+    logTerm(`运行目标工作区 [${currentTargetWorkspace}] 编程智能体环境深度诊断 (Doctor Check)...`, 'info');
     const box = document.getElementById('doctor-output-box');
     const stTag = document.getElementById('unr-doctor-status');
     if (stTag) stTag.innerText = '诊断中...';
     if (box) box.innerText = '正在逐项探测 Antigravity / Claude Code / OpenAI Codex / WorkBuddy / Trae 本地规则状态...';
 
     try {
-      const res = await fetch('/api/unrestricted/doctor');
+      const url = currentTargetWorkspace ? `/api/unrestricted/doctor?workspace=${encodeURIComponent(currentTargetWorkspace)}` : '/api/unrestricted/doctor';
+      const res = await fetch(url);
       const data = await res.json();
       if (data.success) {
         if (box) box.innerText = data.output || '深度诊断完成，各项指标就绪。';
