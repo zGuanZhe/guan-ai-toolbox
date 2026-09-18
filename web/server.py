@@ -118,7 +118,8 @@ def api_restore_sessions():
     engine = get_restore_engine()
     if not engine:
         return jsonify({"success": False, "error": "恢复引擎未就绪"}), 500
-    adapter = engine.get_adapter(tool)
+    tool_alias = {"claude": "claudecode", "chatgpt": "gpt"}.get(tool, tool)
+    adapter = engine.get_adapter(tool_alias)
     if not adapter:
         return jsonify({"success": False, "error": f"未知适配器: {tool}"}), 404
 
@@ -150,7 +151,8 @@ def api_restore_execute():
         return jsonify({"success": False, "error": "缺少 tool 或 session_id 参数"}), 400
 
     engine = get_restore_engine()
-    adapter = engine.get_adapter(tool)
+    tool_alias = {"claude": "claudecode", "chatgpt": "gpt"}.get(tool, tool)
+    adapter = engine.get_adapter(tool_alias)
     if not adapter:
         return jsonify({"success": False, "error": f"未知适配器: {tool}"}), 404
 
@@ -936,8 +938,8 @@ def api_mcp_sync():
             [sys.executable, str(script), "--mcp-sync", target],
             cwd=str(ROOT_DIR),
             capture_output=True,
-            text=True,
-            encoding="utf-8"
+            encoding="utf-8",
+            errors="replace"
         )
         duration = round((time.time() - t0) * 1000, 1)
         return jsonify({
@@ -1208,8 +1210,8 @@ def api_skills_toggle():
             [sys.executable, str(script), arg, skill_name, "--target", str(ROOT_DIR)],
             cwd=str(ROOT_DIR),
             capture_output=True,
-            text=True,
-            encoding="utf-8"
+            encoding="utf-8",
+            errors="replace"
         )
         return jsonify({
             "success": proc.returncode == 0,
@@ -1237,8 +1239,8 @@ def api_skills_profile_apply():
             [sys.executable, str(script), "--profile", actual_profile, "--target", str(ROOT_DIR)],
             cwd=str(ROOT_DIR),
             capture_output=True,
-            text=True,
-            encoding="utf-8"
+            encoding="utf-8",
+            errors="replace"
         )
         return jsonify({
             "success": proc.returncode == 0,
@@ -1349,7 +1351,7 @@ def api_instruct_status():
     output_lines = []
     for tool, cmd in commands.items():
         try:
-            proc = subprocess.run(cmd, cwd=str(Path(cmd[1]).parent), capture_output=True, text=True, encoding="utf-8")
+            proc = subprocess.run(cmd, cwd=str(Path(cmd[1]).parent), capture_output=True, encoding="utf-8", errors="replace")
             ok = proc.returncode == 0
             text_out = proc.stdout.strip() or proc.stderr.strip()
             results[tool] = {
@@ -1754,7 +1756,7 @@ def api_system_exec_command():
 
     t0 = time.time()
     try:
-        proc = subprocess.run(command, shell=True, cwd=cwd, capture_output=True, text=True, encoding="utf-8")
+        proc = subprocess.run(command, shell=True, cwd=cwd, capture_output=True, encoding="utf-8", errors="replace")
         duration = round((time.time() - t0) * 1000, 1)
         return jsonify({
             "success": proc.returncode == 0,
