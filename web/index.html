@@ -304,6 +304,31 @@
       border-radius: var(--radius-sm);
     }
 
+    /* Hand-Drawn Sketch / Doodle Icon Styling */
+    .doodle-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      vertical-align: -2px;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2;
+      flex-shrink: 0;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .neu-btn:hover .doodle-icon {
+      transform: rotate(-4deg) scale(1.12);
+    }
+    .doodle-dot {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      margin-right: 6px;
+      vertical-align: middle;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8), 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
     .neu-input {
       background: var(--bg-primary);
       border: none;
@@ -862,24 +887,24 @@
         <div class="neu-card">
           <div class="neu-card-header">
             <div>
-              <div class="neu-card-title">⚡ 多厂家指纹沙箱开户与自动化流水线</div>
+              <div class="neu-card-title"><svg class="doodle-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-cyan);"><path d="M13 2L3 14h8l-1 8 11-12h-8l1-8z"/></svg> 多厂家指纹沙箱开户与自动化流水线</div>
               <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">
                 基于 Camoufox 真实反检测指纹沙箱，为各平台生成独立 Profile 环境直达官方授权开户；支持 Qoder 底层 5 项硬件特征码实时洗白，绝无虚假数据。
               </div>
             </div>
-            <button class="neu-btn neu-btn-accent neu-btn-sm" id="btn-quick-random-email" onclick="fillRandomEmail()">🎲 生成随机安全邮箱</button>
+            <button class="neu-btn neu-btn-accent neu-btn-sm" id="btn-quick-random-email" onclick="fillRandomEmail()"><svg class="doodle-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.2" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1.2" fill="currentColor"/><circle cx="8.5" cy="15.5" r="1.2" fill="currentColor"/></svg> 生成随机安全邮箱</button>
           </div>
 
           <div style="display: flex; flex-direction: column; gap: 14px;">
             <div>
               <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">选择目标厂商平台</label>
               <div style="display: flex; gap: 10px; margin-top: 6px; flex-wrap: wrap;" id="auto-reg-provider-pills">
-                <button class="neu-btn neu-btn-sm auto-reg-pill active" data-provider="qoder" onclick="selectAutoRegProvider('qoder', this)">🟣 Qoder (硬件洗白+官方OAuth)</button>
-                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="grok" onclick="selectAutoRegProvider('grok', this)">⚫ xAI Grok (独立指纹开户·半自动)</button>
-                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="openai" onclick="selectAutoRegProvider('openai', this)">🟢 OpenAI / ChatGPT (沙箱/接码·半自动)</button>
-                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="workbuddy" onclick="selectAutoRegProvider('workbuddy', this)">🔵 WorkBuddy AI (腾讯云·半自动)</button>
-                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="tavily" onclick="selectAutoRegProvider('tavily', this)">🟡 Tavily Search (独立指纹开户·半自动)</button>
-                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="trae" onclick="selectAutoRegProvider('trae', this)">🔷 Trae / Trae CN (独立指纹开户·半自动)</button>
+                <button class="neu-btn neu-btn-sm auto-reg-pill active" data-provider="qoder" onclick="selectAutoRegProvider('qoder', this)"><span class="doodle-dot" style="background:#8b5cf6;"></span>Qoder (硬件洗白+官方OAuth)</button>
+                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="grok" onclick="selectAutoRegProvider('grok', this)"><span class="doodle-dot" style="background:#374151;"></span>xAI Grok (独立指纹开户·半自动)</button>
+                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="openai" onclick="selectAutoRegProvider('openai', this)"><span class="doodle-dot" style="background:#10b981;"></span>OpenAI / ChatGPT (沙箱/接码·半自动)</button>
+                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="workbuddy" onclick="selectAutoRegProvider('workbuddy', this)"><span class="doodle-dot" style="background:#0052d9;"></span>WorkBuddy AI (腾讯云·半自动)</button>
+                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="tavily" onclick="selectAutoRegProvider('tavily', this)"><span class="doodle-dot" style="background:#f59e0b;"></span>Tavily Search (独立指纹开户·半自动)</button>
+                <button class="neu-btn neu-btn-sm auto-reg-pill" data-provider="trae" onclick="selectAutoRegProvider('trae', this)"><span class="doodle-dot" style="background:#0ea5e9;"></span>Trae / Trae CN (独立指纹开户·半自动)</button>
               </div>
             </div>
 
@@ -897,7 +922,7 @@
             <div style="display: flex; justify-content: flex-end; align-items: center; gap: 12px; margin-top: 4px;">
               <span id="auto-reg-status-text" style="font-size: 12px; color: var(--text-muted);"></span>
               <button class="neu-btn neu-btn-accent" id="btn-run-auto-register" style="padding: 10px 24px; font-weight: 800;" onclick="triggerAutoRegister()">
-                ⚡ 启动独立指纹沙箱进行安全开户
+                <svg class="doodle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h8l-1 8 11-12h-8l1-8z"/></svg> 启动独立指纹沙箱进行安全开户
               </button>
             </div>
           </div>
@@ -907,14 +932,14 @@
         <div class="neu-card">
           <div class="neu-card-header" style="flex-wrap: wrap; gap: 12px;">
             <div>
-              <div class="neu-card-title">🔐 本地多厂商真实账号池与一键秒切</div>
+              <div class="neu-card-title"><svg class="doodle-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-cyan);"><rect x="4" y="11" width="16" height="11" rx="3"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1.2" fill="currentColor"/></svg> 本地多厂商真实账号池与一键秒切</div>
               <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">
                 直接对接本地 Qoder-3 档案、Grok 真实号池与 WorkBuddy 快照，独立 Profile 严格隔离，秒级无感热切换
               </div>
             </div>
             <div style="display: flex; gap: 8px;">
               <button class="neu-btn neu-btn-accent neu-btn-sm" onclick="showAddAccountModal()">+ 手动录入账号</button>
-              <button class="neu-btn neu-btn-sm" onclick="loadAccounts()">🔄 刷新池</button>
+              <button class="neu-btn neu-btn-sm" onclick="loadAccounts()"><svg class="doodle-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg> 刷新池</button>
             </div>
           </div>
 
@@ -962,13 +987,13 @@
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
           <div style="display: flex; gap: 10px;">
             <button class="neu-btn neu-btn-sm neu-btn-accent mcp-subtab-btn active" id="btn-mcp-market" onclick="switchMcpSubTab('market')">
-              🌟 云端精选市场
+              <svg class="doodle-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 云端精选市场
             </button>
             <button class="neu-btn neu-btn-sm mcp-subtab-btn" id="btn-mcp-installed" onclick="switchMcpSubTab('installed')">
-              📦 本地已装插件
+              <svg class="doodle-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> 本地已装插件
             </button>
             <button class="neu-btn neu-btn-sm mcp-subtab-btn" id="btn-mcp-custom" onclick="switchMcpSubTab('custom')">
-              ➕ 自定义导入
+              <svg class="doodle-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> 自定义导入
             </button>
           </div>
           <div style="display: flex; gap: 8px;">
@@ -991,10 +1016,10 @@
               外部社区注册中心入口 / Global MCP Hubs
             </div>
             <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-              <a href="https://smithery.ai" target="_blank" class="neu-btn neu-btn-sm" style="text-decoration: none;">🌐 Smithery.ai 插件中心</a>
-              <a href="https://glama.ai/mcp/servers" target="_blank" class="neu-btn neu-btn-sm" style="text-decoration: none;">🔍 Glama MCP 浏览器</a>
-              <a href="https://www.pulsemcp.com" target="_blank" class="neu-btn neu-btn-sm" style="text-decoration: none;">📈 PulseMCP 榜单</a>
-              <a href="https://github.com/modelcontextprotocol/servers" target="_blank" class="neu-btn neu-btn-sm" style="text-decoration: none;">🐙 Anthropic 官方仓库</a>
+              <a href="https://smithery.ai" target="_blank" class="neu-btn neu-btn-sm" style="text-decoration: none;"><svg class="doodle-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Smithery.ai 插件中心</a>
+              <a href="https://glama.ai/mcp/servers" target="_blank" class="neu-btn neu-btn-sm" style="text-decoration: none;"><svg class="doodle-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Glama MCP 浏览器</a>
+              <a href="https://www.pulsemcp.com" target="_blank" class="neu-btn neu-btn-sm" style="text-decoration: none;"><svg class="doodle-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><polyline points="4 11 9 7 14 10 20 4"/></svg> PulseMCP 榜单</a>
+              <a href="https://github.com/modelcontextprotocol/servers" target="_blank" class="neu-btn neu-btn-sm" style="text-decoration: none;"><svg class="doodle-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="9" r="3"/><path d="M6 9v6M9 9a9 9 0 0 0 9-3"/></svg> Anthropic 官方仓库</a>
             </div>
           </div>
 
@@ -1030,10 +1055,10 @@
 
           <div class="neu-card" style="margin-bottom: 16px; padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
             <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
-              <span style="font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">🎯 目标工程工作区:</span>
+              <span style="font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;"><svg class="doodle-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-cyan);"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg> 目标工程工作区:</span>
               <input type="text" class="neu-input" id="skills-target-workspace" value="D:\Test\Sub2\inland\Qoder-3" style="max-width: 460px; font-weight: 600;" placeholder="输入目标工程路径 (默认主力开发工程 Qoder-3)">
             </div>
-            <button class="neu-btn neu-btn-accent neu-btn-sm" onclick="loadSkills()">🔄 刷新目标工程技能与规范</button>
+            <button class="neu-btn neu-btn-accent neu-btn-sm" onclick="loadSkills()"><svg class="doodle-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg> 刷新目标工程技能与规范</button>
           </div>
 
           <div class="grid-2">
@@ -1141,16 +1166,16 @@
             </div>
             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
               <button class="neu-btn neu-btn-accent" style="padding: 10px 18px; font-weight: 800;" onclick="applyAllUnrestricted()">
-                ⚡ 全平台一键破限
+                <svg class="doodle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h8l-1 8 11-12h-8l1-8z"/></svg> 全平台一键破限
               </button>
               <button class="neu-btn" style="padding: 10px 18px; font-weight: 800;" onclick="resetAllUnrestricted()">
-                🛡️ 全平台恢复原生
+                <svg class="doodle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C7.5 3.5 4 4.5 4 9c0 5.5 3.5 10 8 13 4.5-3 8-7.5 8-13 0-4.5-3.5-5.5-8-7z"/><path d="M9 11.5l2 2 4-4"/></svg> 全平台恢复原生
               </button>
               <button class="neu-btn" style="padding: 10px 16px; font-weight: 700;" onclick="runDoctorCheck()">
-                🩺 环境深度自检
+                <svg class="doodle-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> 环境深度自检
               </button>
               <button class="neu-btn neu-btn-sm" style="padding: 10px 14px;" onclick="loadUnrestrictedApps()" title="刷新状态">
-                🔄 刷新
+                <svg class="doodle-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg> 刷新
               </button>
             </div>
           </div>
@@ -1160,8 +1185,8 @@
                 <!-- 目标工作区动态绑定控制器 (Target Workspace Selector) -->
         <div class="neu-card" style="margin-bottom: 20px; padding: 16px 20px; background: rgba(255, 255, 255, 0.7); border-left: 4px solid var(--accent-cyan); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
           <div style="display: flex; align-items: center; gap: 12px; flex: 1; min-width: 280px;">
-            <div style="width: 36px; height: 36px; border-radius: var(--radius-sm); background: rgba(16, 185, 129, 0.12); display: flex; align-items: center; justify-content: center; font-size: 18px;">
-              🎯
+            <div style="width: 36px; height: 36px; border-radius: var(--radius-sm); background: rgba(139, 92, 246, 0.12); display: flex; align-items: center; justify-content: center; color: var(--accent-cyan);">
+              <svg class="doodle-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
             </div>
             <div>
               <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">当前受管工作区 (Target Workspace)</div>
@@ -1176,10 +1201,10 @@
             </select>
             <input type="text" class="neu-input" id="unr-ws-custom-input" placeholder="或输入任意工程路径..." style="font-size: 12px; font-family: var(--font-mono); padding: 8px 12px; min-width: 220px;">
             <button class="neu-btn neu-btn-accent" style="padding: 8px 14px; font-weight: 800; font-size: 12px;" onclick="applyWorkspaceSwitch()">
-              🔗 绑定工作区
+              <svg class="doodle-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> 绑定工作区
             </button>
             <button class="neu-btn" style="padding: 8px 12px; font-size: 12px;" onclick="quickBindQoder3()" title="快速定位到主力开发项目 Qoder-3">
-              ⚡ 快速锁定 Qoder-3
+              <svg class="doodle-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h8l-1 8 11-12h-8l1-8z"/></svg> 快速锁定 Qoder-3
             </button>
           </div>
         </div>
@@ -1356,6 +1381,39 @@
 </div>
 
 <script>
+  // 手绘风图案与图标引擎 (Hand-Drawn Sketch / Doodle Icon Engine - Zero Emoji)
+  function getDoodleSvg(name, size = 15, extraClass = '') {
+    const s = size;
+    const icons = {
+      bolt: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h8l-1 8 11-12h-8l1-8z"/></svg>`,
+      dice: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.2" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1.2" fill="currentColor"/><circle cx="8.5" cy="15.5" r="1.2" fill="currentColor"/></svg>`,
+      shield: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C7.5 3.5 4 4.5 4 9c0 5.5 3.5 10 8 13 4.5-3 8-7.5 8-13 0-4.5-3.5-5.5-8-7z"/><path d="M9 11.5l2 2 4-4"/></svg>`,
+      lock: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="11" rx="3"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1.2" fill="currentColor"/></svg>`,
+      refresh: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>`,
+      star: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+      box: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>`,
+      plus: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`,
+      globe: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+      search: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
+      chart: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><polyline points="4 11 9 7 14 10 20 4"/></svg>`,
+      git: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="9" r="3"/><path d="M6 9v6M9 9a9 9 0 0 0 9-3"/></svg>`,
+      target: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>`,
+      pulse: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
+      link: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
+      trash: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>`,
+      eye: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`,
+      download: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`,
+      spinner: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-dashoffset="12"/></svg>`,
+      antigravity: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+      claude: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+      codex: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="9" r="1.5"/><circle cx="15.5" cy="9" r="1.5"/><path d="M9 14.5s1.2 1.5 3 1.5 3-1.5 3-1.5"/></svg>`,
+      workbuddy: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r="1.2" fill="currentColor"/><circle cx="15" cy="10" r="1.2" fill="currentColor"/><path d="M9 14.5s1.2 1.5 3 1.5 3-1.5 3-1.5"/></svg>`,
+      trae: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg>`,
+      tool: `<svg class="doodle-icon ${extraClass}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`
+    };
+    return icons[name] || icons.tool;
+  }
+
   let designBrandsData = [];
 
   function logTerm(msg, type = 'info') {
@@ -1672,7 +1730,7 @@
           </td>
           <td>
             <span class="neu-chip" style="font-family: var(--font-mono); font-size: 11px; max-width: 170px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="物理隔离 Profile: ${escapeHtml(a.profile_dir || fpId)}">
-              🛡️ ${escapeHtml(fpId)}
+              ${getDoodleSvg('shield', 12)} ${escapeHtml(fpId)}
             </span>
           </td>
           <td>
@@ -1698,7 +1756,7 @@
                 指纹打开
               </button>
               <button class="neu-btn neu-btn-sm" onclick="deleteAccount('${a.id}', '${a.provider}')" title="从池中移除">
-                🗑️
+                ${getDoodleSvg('trash', 14)}
               </button>
             </div>
           </td>
@@ -1721,7 +1779,7 @@
     }
 
     btn.disabled = true;
-    btn.innerText = '⏳ 正在启动独立指纹沙箱环境...';
+    btn.innerHTML = `${getDoodleSvg('spinner', 14)} 正在启动独立指纹沙箱环境...`;
     if (statusText) statusText.innerText = `正在为 ${provider.toUpperCase()} 分配独立物理 Profile...`;
     logTerm(`正在启动 [${provider.toUpperCase()}] 独立防风控指纹沙箱...`, 'info');
 
@@ -1737,12 +1795,12 @@
       });
       const data = await res.json();
       if (data.success) {
-        logTerm(`✅ [${provider.toUpperCase()}] ${data.message}`, 'success');
+        logTerm(`[OK] [${provider.toUpperCase()}] ${data.message}`, 'success');
         if (statusText) statusText.innerText = '独立指纹沙箱已就绪！';
-        alert(`🎉【Camoufox 防风控指纹沙箱已启动】\n\n${data.message}\n\n物理 Profile 目录:\n${data.profile_dir || '-'}\n\n完成开户或授权后，可在本页面直接刷新并进行一键秒切。`);
+        alert(`【Camoufox 防风控指纹沙箱已启动】\n\n${data.message}\n\n物理 Profile 目录:\n${data.profile_dir || '-'}\n\n完成开户或授权后，可在本页面直接刷新并进行一键秒切。`);
         loadAccounts();
       } else {
-        logTerm(`❌ 启动指纹沙箱失败: ${data.error}`, 'err');
+        logTerm(`[FAIL] 启动指纹沙箱失败: ${data.error}`, 'err');
         if (statusText) statusText.innerText = `启动失败: ${data.error}`;
         alert(`启动失败: ${data.error}`);
       }
@@ -1751,7 +1809,7 @@
       alert(`网络异常: ${e.message}`);
     } finally {
       btn.disabled = false;
-      btn.innerText = '⚡ 启动独立指纹沙箱进行安全开户';
+      btn.innerHTML = `${getDoodleSvg('bolt', 16)} 启动独立指纹沙箱进行安全开户`;
       setTimeout(() => { if (statusText) statusText.innerText = ''; }, 6000);
     }
   }
@@ -1766,7 +1824,7 @@
       });
       const d = await res.json();
       if (d.success) {
-        logTerm(`✅ 账号切换成功: ${d.message}`, 'success');
+        logTerm(`[OK] 账号切换成功: ${d.message}`, 'success');
         loadAccounts();
       } else {
         alert(d.error);
@@ -1786,7 +1844,7 @@
       });
       const d = await res.json();
       if (d.success) {
-        logTerm(`✅ Camoufox 防风控指纹浏览器已启动 [Profile: ${d.profile_dir}]`, 'success');
+        logTerm(`[OK] Camoufox 防风控指纹浏览器已启动 [Profile: ${d.profile_dir}]`, 'success');
       } else {
         alert(d.error);
       }
@@ -1939,7 +1997,7 @@
           <div>
             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
               <span class="neu-chip">${escapeHtml(m.category || 'MCP')}</span>
-              <span style="font-size: 11px; color: var(--text-muted);">★ ${m.rating || '4.9'} · ${m.installs || '10k'}</span>
+              <span style="font-size: 11px; color: var(--text-muted); display: inline-flex; align-items: center; gap: 3px;">${getDoodleSvg('star', 12)} ${m.rating || '4.9'} · ${m.installs || '10k'}</span>
             </div>
             <h3 style="font-size: 15px; font-weight: 800; color: var(--text-main); margin-bottom: 4px;">${escapeHtml(m.name)}</h3>
             <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">by ${escapeHtml(m.author || 'Official')}</div>
@@ -1955,7 +2013,7 @@
               ? `<span class="neu-chip active" style="font-size: 11px;">已安装</span>
                  <button class="neu-btn neu-btn-sm" onclick="uninstallMcp('${m.id}')">卸载</button>`
               : `<button class="neu-btn neu-btn-accent neu-btn-sm" style="flex-grow: 1;" onclick="installMarketplaceMcp('${m.id}')">
-                   ⚡ 一键安装到本地
+                   ${getDoodleSvg('download', 14)} 一键安装到本地
                  </button>`
             }
             ${m.homepage ? `<a href="${m.homepage}" target="_blank" class="neu-btn neu-btn-sm" style="text-decoration: none;" title="查看主页与文档">↗</a>` : ''}
@@ -2414,16 +2472,16 @@
             <!-- Header: Icon, Name & State Chip -->
             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
               <div style="display: flex; align-items: center; gap: 12px;">
-                <div style="width: 42px; height: 42px; border-radius: var(--radius-md); box-shadow: var(--neu-inset-sm); display: flex; align-items: center; justify-content: center; font-size: 22px; background: rgba(255,255,255,0.4);">
-                  ${app.icon || '🛠️'}
+                <div style="width: 42px; height: 42px; border-radius: var(--radius-md); box-shadow: var(--neu-inset-sm); display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.4); color: ${app.color || 'var(--accent-cyan)'};">
+                  ${getDoodleSvg(app.icon || app.id || 'tool', 22)}
                 </div>
                 <div>
                   <div style="font-weight: 800; font-size: 15px; color: var(--text-main);">${escapeHtml(app.name)}</div>
                   <div style="font-size: 11px; color: var(--text-muted);">${escapeHtml(app.vendor || '')} · <span style="font-family: var(--font-mono);">${escapeHtml(app.badge || '')}</span></div>
                 </div>
               </div>
-              <span class="neu-chip ${isUnr ? 'active' : ''}" style="${isUnr ? 'color: #10b981; font-weight: 800; background: rgba(16, 185, 129, 0.1);' : 'color: var(--text-muted);'}">
-                ${isUnr ? '⚡ 已破限' : '🛡️ 原生默认基线'}
+              <span class="neu-chip ${isUnr ? 'active' : ''}" style="${isUnr ? 'color: #10b981; font-weight: 800; background: rgba(16, 185, 129, 0.1);' : 'color: var(--text-muted);'}; display: inline-flex; align-items: center; gap: 4px;">
+                ${isUnr ? getDoodleSvg('bolt', 13) + ' 已破限' : getDoodleSvg('shield', 13) + ' 原生默认基线'}
               </span>
             </div>
 
@@ -2472,13 +2530,13 @@
           <!-- Card Actions -->
           <div style="display: flex; gap: 8px; flex-wrap: wrap; border-top: 1px solid rgba(214, 207, 226, 0.4); padding-top: 14px;">
             <button class="neu-btn neu-btn-accent" style="flex: 1; padding: 8px 12px; font-size: 12px; font-weight: 800;" onclick="applyAppUnrestricted('${app.id}')">
-              ⚡ 应用破限
+              ${getDoodleSvg('bolt', 14)} 应用破限
             </button>
             <button class="neu-btn" style="flex: 1; padding: 8px 12px; font-size: 12px; font-weight: 700;" onclick="resetAppUnrestricted('${app.id}')">
-              🛡️ 恢复原生
+              ${getDoodleSvg('shield', 14)} 恢复原生
             </button>
             <button class="neu-btn neu-btn-sm" style="padding: 8px 10px; font-size: 11px;" onclick="previewAppRule('${app.id}')" title="查看将要注入的真实规则文本源码">
-              👁️ 预览
+              ${getDoodleSvg('eye', 14)} 预览
             </button>
           </div>
         </div>
